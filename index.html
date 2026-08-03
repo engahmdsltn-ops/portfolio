@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmad Sultan — Full-Stack Odoo &amp; Python Developer</title>
+<meta name="description" content="Ahmad Sultan — Full-Stack Odoo &amp; Python Developer. ERP, fintech, SaaS and secure backend systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --maxw: 1120px;
+
+    --shadow-panel: 0 20px 60px -20px rgba(0,0,0,0.55);
+  }
+
+  html[data-theme="dark"]{
+    --bg: #0A0C10;
+    --bg-panel: #12151C;
+    --bg-elevated: #171B24;
+    --bg-hover: #1C212C;
+    --border: #242A35;
+    --border-soft: #1B2029;
+    --text: #E7ECF2;
+    --text-muted: #8A93A3;
+    --text-dim: #5A6272;
+    --ok: #4FD8A0;
+    --ok-dim: #2E6B54;
+    --warn: #E8B75C;
+    --warn-dim: #7A5F31;
+    --info: #6FB7E8;
+    --info-dim: #38607F;
+    --scrim: rgba(10,12,16,0.82);
+  }
+
+  html[data-theme="light"]{
+    --bg: #F5F6F9;
+    --bg-panel: #FFFFFF;
+    --bg-elevated: #FFFFFF;
+    --bg-hover: #EEF0F4;
+    --border: #DEE2E9;
+    --border-soft: #E7EAEF;
+    --text: #171B22;
+    --text-muted: #5B6472;
+    --text-dim: #8991A0;
+    --ok: #17875A;
+    --ok-dim: #CFEEE1;
+    --warn: #9C6B0B;
+    --warn-dim: #F3E3C4;
+    --info: #1D6FA5;
+    --info-dim: #CFE4F2;
+    --scrim: rgba(255,255,255,0.86);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position: sticky; top:0; z-index: 50;
+    background: var(--scrim);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav-inner{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 16px;
+  }
+  .brand{
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    display:flex; align-items:center; gap:2px;
+    white-space: nowrap;
+  }
+  .brand .prompt{ color: var(--ok); }
+  .brand .path{ color: var(--text-muted); }
+  .brand .cursor{
+    display:inline-block; width:8px; height:16px; background: var(--text);
+    margin-left:4px; animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  nav.links{
+    display:flex; gap: 26px; align-items:center;
+  }
+  nav.links a{
+    text-decoration:none;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    letter-spacing: 0.2px;
+    transition: color 0.15s ease;
+  }
+  nav.links a:hover, nav.links a:focus-visible{ color: var(--text); }
+
+  .nav-actions{ display:flex; align-items:center; gap:10px; }
+
+  button.theme-toggle{
+    width: 38px; height: 38px;
+    display:flex; align-items:center; justify-content:center;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    cursor:pointer;
+    transition: background 0.15s ease, border-color .15s ease;
+  }
+  button.theme-toggle:hover{ background: var(--bg-hover); }
+  button.theme-toggle svg{ width:18px; height:18px; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    text-decoration:none;
+    cursor:pointer;
+    transition: all 0.15s ease;
+    letter-spacing: 0.2px;
+  }
+  .btn-primary{
+    background: var(--ok);
+    color: #071510;
+    border-color: var(--ok);
+  }
+  html[data-theme="light"] .btn-primary{ color: #FFFFFF; }
+  .btn-primary:hover{ filter: brightness(1.08); transform: translateY(-1px); }
+  .btn-ghost{
+    background: transparent;
+    color: var(--text);
+  }
+  .btn-ghost:hover{ background: var(--bg-elevated); }
+
+  .nav-cta{ display:none; }
+  @media (min-width: 860px){ .nav-cta{ display:inline-flex; } }
+
+  /* mobile nav links collapse */
+  @media (max-width: 860px){
+    nav.links{ display:none; }
+  }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{ padding: 88px 0; border-bottom: 1px solid var(--border-soft); }
+  section:last-of-type{ border-bottom:none; }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-dim);
+    text-transform: lowercase;
+    letter-spacing: 0.3px;
+    margin: 0 0 10px;
+  }
+  .eyebrow::before{ content:"# "; color: var(--info); }
+
+  h2.section-title{
+    font-family: var(--font-mono);
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    margin: 0 0 34px;
+    letter-spacing: -0.2px;
+  }
+
+  .reveal{
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.is-visible{ opacity: 1; transform: translateY(0); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 64px 0 96px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items:center;
+  }
+  @media (min-width: 980px){
+    .hero-grid{ grid-template-columns: 1.05fr 0.95fr; gap: 56px; }
+  }
+
+  .terminal{
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-panel);
+    overflow:hidden;
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding: 11px 14px;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+  }
+  .dot{ width:11px; height:11px; border-radius:50%; }
+  .dot.r{ background:#EE6A5F; }
+  .dot.y{ background:#F5BD4F; }
+  .dot.g{ background:#61C454; }
+  .terminal-title{
+    margin: 0 auto;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-dim);
+    transform: translateX(-14px);
+  }
+  .terminal-body{
+    padding: 20px 20px 26px;
+    font-family: var(--font-mono);
+    font-size: 13.2px;
+    min-height: 360px;
+  }
+  .term-line-prompt{ color: var(--text-muted); margin-bottom: 14px; }
+  .term-line-prompt .sym{ color: var(--ok); }
+
+  .log-line{
+    display:flex; gap:10px; margin-bottom: 11px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    flex-wrap: wrap;
+  }
+  .log-ts{ color: var(--text-dim); flex-shrink:0; }
+  .log-tag{
+    flex-shrink:0;
+    font-weight:700;
+    padding: 0 6px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  .tag-AUDIT{ color: var(--warn); background: transparent; border:1px solid var(--warn-dim); }
+  .tag-BUILD{ color: var(--info); background: transparent; border:1px solid var(--info-dim); }
+  .tag-AUTH{ color: var(--info); background: transparent; border:1px solid var(--info-dim); }
+  .tag-OSS{ color: var(--ok); background: transparent; border:1px solid var(--ok-dim); }
+  .tag-COMPLY{ color: var(--ok); background: transparent; border:1px solid var(--ok-dim); }
+  .tag-SCALE{ color: var(--info); background: transparent; border:1px solid var(--info-dim); }
+  .tag-STATUS{ color: var(--ok); background: transparent; border:1px solid var(--ok-dim); }
+
+  .log-text{ color: var(--text); }
+  .type-cursor{
+    display:inline-block; width:7px; height:14px; background: var(--ok);
+    margin-left: 2px; vertical-align: middle;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  .hero-copy .kicker{
+    font-family: var(--font-mono);
+    color: var(--ok);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 14px;
+  }
+  .hero-copy h1{
+    font-family: var(--font-mono);
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0 0 14px;
+    letter-spacing: -0.5px;
+  }
+  .hero-copy .role{
+    font-size: 19px;
+    color: var(--text-muted);
+    margin: 0 0 22px;
+    font-weight: 500;
+  }
+  .hero-copy p.lede{
+    font-size: 16.5px;
+    color: var(--text-muted);
+    max-width: 46ch;
+    margin: 0 0 28px;
+  }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap: 12px; margin-bottom: 30px; }
+
+  .stat-row{ display:flex; flex-wrap:wrap; gap: 10px; }
+  .stat-chip{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 13px;
+    background: var(--bg-panel);
+  }
+  .stat-chip b{ color: var(--text); }
+
+  /* ---------- TECH TICKER ---------- */
+  .ticker-wrap{
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    background: var(--bg-panel);
+    overflow: hidden;
+    position: relative;
+    padding: 16px 0;
+  }
+  .ticker-wrap::before, .ticker-wrap::after{
+    content:"";
+    position:absolute; top:0; bottom:0; width:80px; z-index:2;
+    pointer-events:none;
+  }
+  .ticker-wrap::before{ left:0; background: linear-gradient(90deg, var(--bg-panel), transparent); }
+  .ticker-wrap::after{ right:0; background: linear-gradient(270deg, var(--bg-panel), transparent); }
+  .ticker-track{
+    display:flex;
+    align-items:center;
+    gap: 42px;
+    width: max-content;
+    animation: ticker-scroll 32s linear infinite;
+  }
+  .ticker-wrap:hover .ticker-track{ animation-play-state: paused; }
+  @keyframes ticker-scroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  .ticker-item{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .ticker-item img{ width: 22px; height: 22px; object-fit: contain; flex-shrink:0; }
+  .ticker-item span{ color: var(--text); }
+  /* Flask, Linux, and Firebase-plain ship as solid-black marks; invert for dark theme, keep as-is on light */
+  html[data-theme="dark"] .ticker-item img[alt="Flask"],
+  html[data-theme="dark"] .ticker-item img[alt="Linux"]{
+    filter: invert(1) brightness(1.6);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ticker-track{ animation: none; }
+    .ticker-wrap{ overflow-x: auto; }
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-panel{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  @media (min-width: 860px){
+    .about-panel{ grid-template-columns: 1.2fr 0.8fr; }
+  }
+  .about-text p{
+    font-size: 17.5px;
+    color: var(--text-muted);
+    max-width: 62ch;
+    margin: 0 0 18px;
+  }
+  .about-text p strong{ color: var(--text); font-weight:600; }
+  .about-text p.about-prompt{
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 18px;
+  }
+  .about-text p.about-prompt .sym{ color: var(--ok); }
+
+  .about-meta{
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-panel);
+    padding: 22px 22px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+  }
+  .about-meta .row{
+    display:flex; justify-content:space-between; gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--text-muted);
+  }
+  .about-meta .row:last-child{ border-bottom:none; }
+  .about-meta .row span:first-child{ color: var(--text-dim); }
+  .about-meta .row span:last-child{ color: var(--text); text-align:right; }
+
+  .avatar-placeholder{
+    display:flex; flex-direction:column; align-items:center;
+    gap: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .avatar-circle{
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    border: 1.5px dashed var(--border);
+    background: var(--bg-elevated);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--text-dim);
+  }
+  .avatar-circle svg{ width: 40px; height: 40px; }
+  .avatar-caption{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+  }
+  .skill-card{
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: var(--radius-md);
+    padding: 20px 20px 18px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .skill-card:hover{ border-color: var(--text-dim); transform: translateY(-2px); }
+  .skill-card .filename{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    display:flex; align-items:flex-start; gap:8px;
+  }
+  .skill-card .filename::before{ content:"›"; color: var(--ok); flex-shrink:0; }
+  .skill-card .filename span{
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .skill-card p{
+    margin:0; color: var(--text-muted); font-size: 14.5px; line-height:1.65;
+  }
+
+  /* ---------- EXPERIENCE / CHANGELOG ---------- */
+  .changelog{ display:flex; flex-direction:column; gap: 26px; }
+  .release{
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: var(--radius-md);
+    padding: 24px 26px;
+  }
+  .release-head{
+    display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:10px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .release-version{
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 16.5px;
+    color: var(--text);
+  }
+  .release-version .brackets{ color: var(--ok); }
+  .release-meta{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .change-group{ margin-bottom: 14px; }
+  .change-group:last-child{ margin-bottom:0; }
+  .change-label{
+    display:inline-block;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+  }
+  .change-label.added{ color: var(--info); border:1px solid var(--info-dim); }
+  .change-label.security{ color: var(--warn); border:1px solid var(--warn-dim); }
+  .change-label.changed{ color: var(--ok); border:1px solid var(--ok-dim); }
+  .change-list{ margin:0; padding-left: 20px; color: var(--text-muted); font-size: 15px; }
+  .change-list li{ margin-bottom: 6px; line-height:1.55; }
+  .change-list li::marker{ color: var(--text-dim); }
+
+  /* ---------- PROJECTS ---------- */
+  .filter-row{
+    display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 30px;
+  }
+  .filter-chip{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    color: var(--text-muted);
+    cursor:pointer;
+    transition: all .15s ease;
+  }
+  .filter-chip:hover{ border-color: var(--text-dim); color: var(--text); }
+  .filter-chip.active{ background: var(--ok); border-color: var(--ok); color:#071510; }
+  html[data-theme="light"] .filter-chip.active{ color:#FFFFFF; }
+
+  .project-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .project-card{
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: var(--radius-md);
+    padding: 22px 22px 20px;
+    display:flex; flex-direction:column;
+    transition: transform .2s ease, border-color .2s ease;
+  }
+  .project-card:hover{ transform: translateY(-3px); border-color: var(--text-dim); }
+  .project-top{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; margin-bottom: 10px; }
+  .project-heading{ display:flex; align-items:center; gap:12px; min-width:0; }
+  .project-avatar{
+    flex-shrink:0;
+    width: 38px; height: 38px;
+    border-radius: 9px;
+    display:flex; align-items:center; justify-content:center;
+    border: 1px solid;
+  }
+  .project-avatar svg{ width: 19px; height: 19px; }
+  .project-avatar.cat-warn{ color: var(--warn); border-color: var(--warn-dim); background: color-mix(in srgb, var(--warn) 10%, transparent); }
+  .project-avatar.cat-info{ color: var(--info); border-color: var(--info-dim); background: color-mix(in srgb, var(--info) 10%, transparent); }
+  .project-avatar.cat-ok{ color: var(--ok); border-color: var(--ok-dim); background: color-mix(in srgb, var(--ok) 10%, transparent); }
+  .project-avatar.cat-dim{ color: var(--text-dim); border-color: var(--border); background: var(--bg-elevated); }
+  .project-card h3{
+    font-family: var(--font-mono);
+    font-size: 15.5px;
+    margin: 0;
+    line-height:1.4;
+  }
+  .project-tag{
+    flex-shrink:0;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight:700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+  }
+  .project-meta{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    margin: 0 0 4px;
+  }
+  .project-role{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--info);
+    margin: 0 0 12px;
+    font-style: italic;
+  }
+  .project-desc{
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin: 0 0 14px;
+    flex-grow:1;
+    line-height:1.6;
+  }
+  .project-tech-label{
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin: 0 0 8px;
+  }
+  .project-tech-label::before{ content:"// "; }
+  ul.project-tech{
+    margin: 0 0 14px;
+    padding-left: 18px;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  ul.project-tech li{ margin-bottom: 5px; }
+  ul.project-tech li::marker{ color: var(--text-dim); }
+  .project-skills{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    padding-top: 12px;
+    border-top: 1px solid var(--border-soft);
+    line-height:1.7;
+    margin-top: auto;
+  }
+
+  /* ---------- EDUCATION / CERTS ---------- */
+  .ed-cert-grid{
+    display:grid; grid-template-columns: 1fr; gap: 36px;
+  }
+  @media (min-width: 860px){ .ed-cert-grid{ grid-template-columns: 1fr 1fr; } }
+  .subhead{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin: 0 0 16px;
+  }
+  .edu-card{
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+  }
+  .edu-card h4{ margin: 0 0 6px; font-size: 16px; }
+  .edu-card .meta{ color: var(--text-muted); font-size: 14px; margin: 0 0 10px; }
+  .edu-card .note{ color: var(--text-dim); font-size: 13.5px; font-style: italic; margin:0; }
+
+  ul.cert-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  ul.cert-list li{
+    display:flex; justify-content:space-between; gap:10px;
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  ul.cert-list li .cname{ color: var(--text); text-decoration:none; transition: color .15s ease; }
+  ul.cert-list li .cname:hover{ color: var(--ok); }
+  ul.cert-list li .cyear{ font-family: var(--font-mono); color: var(--text-dim); font-size: 12.5px; flex-shrink:0; }
+
+  .lang-row{ display:flex; flex-wrap:wrap; gap: 12px; margin-top: 22px; }
+  .lang-chip{
+    font-family: var(--font-mono); font-size: 13px;
+    border:1px solid var(--border); border-radius: 999px;
+    padding: 8px 14px; color: var(--text-muted);
+  }
+  .lang-chip b{ color: var(--text); }
+
+  /* ---------- CONTACT ---------- */
+  .contact-panel{
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-panel);
+    overflow:hidden;
+  }
+  .contact-inner{ padding: 40px 40px 36px; }
+  @media (max-width: 640px){ .contact-inner{ padding: 30px 22px; } }
+  .contact-inner .prompt-line{
+    font-family: var(--font-mono); color: var(--text-dim); font-size: 13px; margin-bottom: 18px;
+  }
+  .contact-inner h2{
+    font-family: var(--font-mono);
+    font-size: clamp(22px,3.4vw,30px);
+    margin: 0 0 14px;
+  }
+  .contact-inner p{
+    color: var(--text-muted); font-size: 16px; max-width: 56ch; margin: 0 0 28px;
+  }
+  .contact-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; margin-bottom: 30px;
+  }
+  .contact-item{
+    border:1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 14px 16px; font-family: var(--font-mono); font-size: 13.5px;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .contact-item .k{ color: var(--text-dim); font-size:11.5px; text-transform:uppercase; letter-spacing:.4px; }
+  .contact-item .v{ color: var(--text); text-decoration:none; word-break:break-word; }
+  .contact-item .v:hover{ color: var(--ok); }
+  .contact-actions{ display:flex; flex-wrap:wrap; gap:12px; }
+
+  footer{
+    text-align:center;
+    padding: 30px 24px 40px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+
+  :focus-visible{ outline: 2px solid var(--info); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="prompt">ahmad@sultan</span><span class="path">:~$</span><span class="cursor"></span>
+    </div>
+    <nav class="links">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-primary nav-cta" href="Ahmad_Sultan_CV_EU.docx" download>Download CV</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme" title="Toggle theme">
+        <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="terminal reveal">
+      <div class="terminal-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <p class="terminal-title">ahmad@sultan — audit_trail.log</p>
+      </div>
+      <div class="terminal-body">
+        <p class="term-line-prompt"><span class="sym">$</span> tail -f audit_trail.log</p>
+        <div id="logOutput"></div>
+      </div>
+    </div>
+
+    <div class="hero-copy reveal">
+      <p class="kicker">// full-stack odoo &amp; python developer</p>
+      <h1>Ahmad Sultan</h1>
+      <p class="role">I help build the ERP and fintech backends companies trust with real money and real data.</p>
+      <p class="lede">3+ years designing Odoo &amp; Python systems end-to-end — architecture, APIs, and the security decisions that hold them together. Based in Damascus, open to relocating for EU sponsorship.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="Ahmad_Sultan_CV_EU.docx" download>Download CV</a>
+        <a class="btn btn-ghost" href="mailto:eng.ahmd.sltn@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/ahmad-sultan-0150743ab" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="stat-row">
+        <span class="stat-chip"><b>3+</b> years</span>
+        <span class="stat-chip"><b>15+</b> projects contributed to</span>
+        <span class="stat-chip">Odoo <b>14–19</b></span>
+        <span class="stat-chip"><b>EU</b> relocation-ready</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TECH TICKER ===================== -->
+<div class="ticker-wrap" role="marquee" aria-label="Technologies and frameworks">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="ticker-item"><img src="https://cdn.simpleicons.org/odoo/714B67" alt="Odoo" loading="lazy"><span>Odoo</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy"><span>Python</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy"><span>JavaScript</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" loading="lazy"><span>Flutter</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" loading="lazy"><span>React</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" loading="lazy"><span>PostgreSQL</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" loading="lazy"><span>MongoDB</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" loading="lazy"><span>Docker</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" loading="lazy"><span>Git</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" loading="lazy"><span>Linux</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="Flask" loading="lazy"><span>Flask</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI" loading="lazy"><span>FastAPI</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" loading="lazy"><span>Django</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" loading="lazy"><span>Firebase</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" loading="lazy"><span>HTML5</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" loading="lazy"><span>CSS3</span></span>
+  </div>
+</div>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+  <div class="wrap">
+    <p class="eyebrow">about</p>
+    <h2 class="section-title">Behind the log entries</h2>
+    <div class="about-panel">
+      <div class="about-text reveal">
+        <p class="about-prompt"><span class="sym">$</span> whoami</p>
+        <p>I'm Ahmad — a full-stack Odoo and Python developer who likes owning a project end to end: the database schema, the API, the security decisions around it, and the app someone actually opens on their phone.</p>
+        <p>Three-plus years in, I've shipped or contributed to <strong>15+ projects</strong> — ERP rollouts, a multi-tenant SaaS platform, government compliance integrations, and a fintech wallet that moves real customer money. One of those started as a security audit I ran myself, which turned into leading the remediation team through the rebuild.</p>
+        <p>None of that happens solo. I gather requirements directly with clients, hand off clean API contracts to the frontend and mobile teams I work alongside, review code for the people I mentor, and stay on the phone with hardware vendors until an integration actually works. I'm equally comfortable writing the code and explaining it to a non-technical stakeholder.</p>
+        <p>I'm based in Damascus and looking for my next role in the <strong>EU</strong>, where I can keep building backend systems that are reliable, well-structured, and secure by design — as part of a team, not in isolation.</p>
+      </div>
+      <div class="about-meta reveal">
+        <div class="avatar-placeholder">
+          <div class="avatar-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>
+          </div>
+          <p class="avatar-caption">// profile.jpg — add photo</p>
+        </div>
+        <div class="row"><span>location</span><span>Damascus, Syria</span></div>
+        <div class="row"><span>relocation</span><span>Open, EU priority</span></div>
+        <div class="row"><span>experience</span><span>3+ years, documented</span></div>
+        <div class="row"><span>focus</span><span>Odoo · Python · REST APIs</span></div>
+        <div class="row"><span>languages</span><span>Arabic, English, German</span></div>
+        <div class="row"><span>email</span><span>eng.ahmd.sltn@gmail.com</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SKILLS ===================== -->
+<section id="skills">
+  <div class="wrap">
+    <p class="eyebrow">skills.yaml</p>
+    <h2 class="section-title">What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <p class="filename"><span>odoo_and_erp</span></p>
+        <p>Module development, ORM, QWeb, OWL.js, server &amp; scheduled actions, multi-company/multi-tenant architecture, Accounting, POS, Sales, Inventory, CRM, HR, Survey, eCommerce — Odoo 14 through 19.</p>
+      </div>
+      <div class="skill-card reveal">
+        <p class="filename"><span>backend_and_apis</span></p>
+        <p>Python, REST API architecture, JWT/OTP authentication, Flask, FastAPI, Django, PostgreSQL, MongoDB, SQL, Swagger/OpenAPI documentation.</p>
+      </div>
+      <div class="skill-card reveal">
+        <p class="filename"><span>frontend_and_mobile</span></p>
+        <p>JavaScript, OWL.js, HTML/CSS, React.js, Flutter (Provider, Firebase, custom packages, biometric authentication).</p>
+      </div>
+      <div class="skill-card reveal">
+        <p class="filename"><span>security_and_compliance</span></p>
+        <p>Secure authentication design (JWT/OTP/KYC), role-based &amp; multi-tenant access control, government e-invoicing/tax-API compliance, audit-trail &amp; forensic logging, PortSwigger Web Security Academy labs in API &amp; backend security.</p>
+      </div>
+      <div class="skill-card reveal">
+        <p class="filename"><span>devops_and_tools</span></p>
+        <p>Git, GitHub, GitLab, Docker, Postman (collections, environments, automated request testing), CI-friendly workflows.</p>
+      </div>
+      <div class="skill-card reveal">
+        <p class="filename"><span>linux_and_systems</span></p>
+        <p>Ubuntu/Debian server administration, Bash scripting, systemd services, cron scheduling, file permissions &amp; user management, SSH, process &amp; log inspection.</p>
+      </div>
+      <div class="skill-card reveal">
+        <p class="filename"><span>teamwork_and_leadership</span></p>
+        <p>Client-facing requirements gathering, technical mentorship of junior/trainee developers, cross-team API contract design, vendor &amp; hardware-manufacturer technical liaison, formal technical writing (audit reports, code documentation), code review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE / CHANGELOG ===================== -->
+<section id="experience">
+  <div class="wrap">
+    <p class="eyebrow">CHANGELOG.md</p>
+    <h2 class="section-title">Experience, as a version history</h2>
+    <div class="changelog">
+
+      <div class="release reveal">
+        <div class="release-head">
+          <span class="release-version"><span class="brackets">[</span>2026.02 — present<span class="brackets">]</span></span>
+          <span class="release-meta">Full-Stack Odoo Developer · Apollo Group (Solution) · Damascus, Syria</span>
+        </div>
+        <div class="change-group">
+          <span class="change-label security">security</span>
+          <ul class="change-list">
+            <li>Ran an independent security and code-quality audit of a production fintech e-wallet platform, flagging critical API and architecture risks, then presented the findings and led the engineering team through the remediation.</li>
+          </ul>
+        </div>
+        <div class="change-group">
+          <span class="change-label added">added</span>
+          <ul class="change-list">
+            <li>Full REST API framework on Odoo's HTTP layer: an API registry, decorator-based endpoint grouping, and transaction-safe controllers with full rollback on validation failure.</li>
+            <li>JWT-based authentication and a reusable OTP framework for phone-number login.</li>
+            <li>A template-driven KYC verification engine with configurable workflows and approval steps.</li>
+            <li>Live, permission-gated API documentation via Swagger, so integrators and other teams could self-serve without pinging me for every endpoint.</li>
+          </ul>
+        </div>
+        <div class="change-group">
+          <span class="change-label changed">changed</span>
+          <ul class="change-list">
+            <li>Extended ownership into Accounting (journal entries, chart of accounts, payment providers) and upgraded the platform from Odoo 18 to 19.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release reveal">
+        <div class="release-head">
+          <span class="release-version"><span class="brackets">[</span>2023.05 – 2026.01<span class="brackets">]</span></span>
+          <span class="release-meta">Full-Stack Odoo &amp; Flutter Developer · EBTECH Technologies · Dubai, UAE (Remote)</span>
+        </div>
+        <div class="change-group">
+          <span class="change-label added">added</span>
+          <ul class="change-list">
+            <li>12+ ERP and mobile application projects across Accounting, POS, Sales, Inventory, Website, Portal, and Survey modules.</li>
+            <li>Scalable backend workflows and automation in Python/Odoo ORM serving 500+ users.</li>
+            <li>REST APIs integrating payment gateways, SMS providers, and external business systems.</li>
+            <li>Flutter mobile applications connected to Odoo backends via REST APIs.</li>
+          </ul>
+        </div>
+        <div class="change-group">
+          <span class="change-label changed">changed</span>
+          <ul class="change-list">
+            <li>Rolled out multi-company ERP setups with custom websites, user management, and role-based access control.</li>
+            <li>Reviewed teammates' code, mentored junior developers day-to-day, and led technical design discussions across the SDLC.</li>
+            <li>Worked directly with clients during requirements gathering and issue triage, translating business needs into technical specs the team could build from.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release reveal">
+        <div class="release-head">
+          <span class="release-version"><span class="brackets">[</span>2024.05 – 2024.09<span class="brackets">]</span></span>
+          <span class="release-meta">Odoo &amp; Flutter Developer (Academic Project) · Damascus University</span>
+        </div>
+        <div class="change-group">
+          <span class="change-label added">added</span>
+          <ul class="change-list">
+            <li>Partnered with one teammate on a Healthcare Management System combining Odoo, Flutter, and Ethereum blockchain for secure medical record verification — independently owned the Odoo backend and API layer while co-developing the blockchain integration; teammate led the Flutter client.</li>
+            <li>Result: 93% — highest grade in class.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section id="projects">
+  <div class="wrap">
+    <p class="eyebrow">projects/</p>
+    <h2 class="section-title">Selected work — 13 documented projects</h2>
+    <p style="color:var(--text-muted); font-size:15px; max-width:62ch; margin:-18px 0 30px;">All delivered as part of a team, not solo. Each card below states my specific role and lists only the pieces I was personally responsible for.</p>
+
+    <div class="filter-row" id="filterRow">
+      <button class="filter-chip active" data-filter="all">all</button>
+      <button class="filter-chip" data-filter="fintech">fintech &amp; security</button>
+      <button class="filter-chip" data-filter="saas">saas &amp; erp</button>
+      <button class="filter-chip" data-filter="retail">pos &amp; retail</button>
+      <button class="filter-chip" data-filter="compliance">compliance</button>
+      <button class="filter-chip" data-filter="mobile">mobile</button>
+    </div>
+
+    <div class="project-grid" id="projectGrid">
+
+      <article class="project-card reveal" data-cat="fintech">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><h3>Fintech E-Wallet — Security Audit &amp; Remediation</h3></div>
+          <span class="project-tag" style="color:var(--warn);border:1px solid var(--warn-dim)">Security</span>
+        </div>
+        <p class="project-meta">Apollo Group · Odoo 18 → 19</p>
+        <p class="project-role">Role: ran the audit independently, then led the engineering team through remediation</p>
+        <p class="project-desc">Audited a live fintech wallet used for real customer transactions and found serious structural and security risks. I then led the team that rebuilt the core systems, personally owning the API and auth architecture.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Designed and built the REST framework that replaced the JSON-RPC-only API layer: endpoint registry, decorator-based grouping, transaction-safe controllers with rollback on failure</li>
+          <li>Built JWT + OTP authentication and turned a hardcoded KYC process into a configurable verification engine</li>
+          <li>Integrated Swagger docs gated by user permissions, so integrators only see what they're authorized to use</li>
+        </ul>
+        <p class="project-skills">audit · REST architecture · JWT/OTP · KYC · Swagger</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="saas">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg></span><h3>Krooz.ai — Multi-Tenant Talent Assessment SaaS</h3></div>
+          <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">SaaS</span>
+        </div>
+        <p class="project-meta">GCC region · Odoo 17</p>
+        <p class="project-role">Role: backend developer on the Krooz.ai delivery team at EBTECH</p>
+        <p class="project-desc">Part of the team that shipped Krooz.ai. My piece was the automation that turns a signed sales deal into a fully working company account — a new business, an admin login, a website, and a web address, ready in minutes with no manual setup.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Built the CRM-to-provisioning pipeline triggered on a won opportunity: auto-creates the company, admin user, website, and subdomain</li>
+          <li>Automated DNS and subdomain configuration via the Cloudflare API</li>
+          <li>Implemented the multi-tenant access control so each company only ever sees its own sales, surveys, and reports</li>
+        </ul>
+        <p class="project-skills">multi-tenant architecture · Cloudflare API · CRM automation</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="compliance">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><h3>Syrian Tax Authority — E-Invoicing Integration</h3></div>
+          <span class="project-tag" style="color:var(--ok);border:1px solid var(--ok-dim)">Compliance</span>
+        </div>
+        <p class="project-meta">Government regulatory · Odoo 17, 18</p>
+        <p class="project-role">Role: backend developer on the integration team at EBTECH</p>
+        <p class="project-desc">Part of the EBTECH team responsible for this integration. I built the connection between Odoo Accounting and the government tax authority, so every invoice is reported automatically and comes with a scannable QR code proving it's legitimate.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Built the real-time transmission of invoice data to the tax authority's API at the moment of sale</li>
+          <li>Processed the authority's response to generate and print a compliance QR code on each invoice</li>
+          <li>Enabled customers to independently verify any invoice through the authority's official app</li>
+        </ul>
+        <p class="project-skills">government API integration · real-time reporting · QR compliance · relevant to EU e-invoicing (XRechnung/ZUGFeRD, KSeF)</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="retail">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span><h3>Pharmaceutical Retail — Multi-Location POS</h3></div>
+          <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">Retail</span>
+        </div>
+        <p class="project-meta">Multi-location POS · Odoo 18</p>
+        <p class="project-role">Role: backend developer on the POS delivery team at EBTECH</p>
+        <p class="project-desc">Part of the team that adapted the point-of-sale system for a pharmacy chain. My responsibility was the inventory and serialization work — tracking every product batch by expiry date instead of a generic serial number.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Converted static serial-number tracking to DATETIME-based serialization for expiry/batch tracking</li>
+          <li>Customized POS sale orders to capture pharmacy-specific data at checkout</li>
+          <li>Extended the Landed Cost module to allocate import and logistics costs accurately</li>
+        </ul>
+        <p class="project-skills">regulated inventory · custom serialization · landed cost</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="fintech">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></span><h3>OCA Audit Log — Open-Source Security Extension</h3></div>
+          <span class="project-tag" style="color:var(--warn);border:1px solid var(--warn-dim)">Open Source</span>
+        </div>
+        <p class="project-meta">Public OCA contribution · Odoo 16–19</p>
+        <p class="project-role">Role: independent open-source contributor</p>
+        <p class="project-desc">My own contribution to the public OCA community's audit_log module, extending it to give companies a clearer paper trail of who did what and when — the kind of thing that matters for passing a security review.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Extended auditable actions to include PDF report downloads and Document-module file downloads</li>
+          <li>Added IP address capture to every log entry for forensic traceability</li>
+          <li>Added Pivot and Kanban views so audit logs are easier to review at scale</li>
+        </ul>
+        <p class="project-skills">forensic logging · audit trails · open-source contribution — verifiable on GitHub</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="retail">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><h3>Granada Market — Retail E-Commerce</h3></div>
+          <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">Retail</span>
+        </div>
+        <p class="project-meta">Sharjah, UAE · Odoo 18</p>
+        <p class="project-role">Role: backend developer on the e-commerce delivery team at EBTECH</p>
+        <p class="project-desc">Part of the team behind the online store for a specialty coffee roastery. I handled the payments integration and inventory tracking, making sure every bag of coffee could be traced back to its batch.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Integrated payment gateways into Odoo's native payment provider framework</li>
+          <li>Customized serial-number tracking in the Inventory module</li>
+          <li>Reworked the POS product card, invoicing flow, and sale-order behavior</li>
+        </ul>
+        <p class="project-skills">payment gateways · inventory serialization · POS customization</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="saas">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><h3>Codati — Gift Card E-Commerce Platform</h3></div>
+          <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">ERP</span>
+        </div>
+        <p class="project-meta">Internship / training project · Odoo 15</p>
+        <p class="project-role">Role: backend developer on the Codati training-project team</p>
+        <p class="project-desc">Part of the team building this gift-card platform. My scope was the backend automation that restocks itself and always buys from whichever supplier has the best price — no manual comparison needed.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Integrated multiple regional gift-card suppliers into Odoo's sourcing module, auto-replenishing stock on sellout</li>
+          <li>Automated vendor price comparison to select the best-priced supplier at time of purchase</li>
+          <li>Built REST APIs powering an Android POS terminal, plus a scheduled action to batch invoicing off-peak</li>
+          <li>Worked directly with the client through requirements calls and issue triage throughout the build</li>
+        </ul>
+        <p class="project-skills">vendor API integration · reconciliation · scheduled actions · client communication</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="mobile">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><h3>E-Wallet Mobile Application</h3></div>
+          <span class="project-tag" style="color:var(--ok);border:1px solid var(--ok-dim)">Mobile</span>
+        </div>
+        <p class="project-meta">Flutter · Android &amp; iOS</p>
+        <p class="project-role">Role: Flutter developer brought onto the app team at EBTECH</p>
+        <p class="project-desc">Internal leadership pulled me onto this app after seeing my earlier Flutter work. I owned the architecture and core build of the digital wallet — the kind where someone checks their balance, sends money, and verifies their identity, all from their phone.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Custom module-registry architecture that decouples app features from one another</li>
+          <li>State management via Provider, local persistence via SharedPreferences, push notifications via Firebase</li>
+          <li>Custom packages for search and PIN/OTP verification; shipped to both Android and iOS</li>
+        </ul>
+        <p class="project-skills">Flutter architecture · Firebase · secure auth UX</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="mobile">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span><h3>RFID POS Solution</h3></div>
+          <span class="project-tag" style="color:var(--ok);border:1px solid var(--ok-dim)">Mobile</span>
+        </div>
+        <p class="project-meta">Hardware-integrated POS · paired with a trainee developer</p>
+        <p class="project-role">Role: backend developer + mentor, dual-role engagement</p>
+        <p class="project-desc">Worked this one as a two-person team: I owned the Odoo backend and mentored a trainee developer through the app-side build, so staff could scan a shelf with an RFID reader and instantly know what's in stock.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Integrated RFID hardware via the manufacturer's SDK, working directly with their support team on integration gaps</li>
+          <li>Built a reusable interface package wrapping the SDK, then mentored the trainee developer building the UI on top of it</li>
+          <li>Built Odoo APIs to read RFID-scanned products and reconcile them against on-hand stock</li>
+        </ul>
+        <p class="project-skills">hardware SDK integration · stock reconciliation · technical mentorship</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="mobile">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><h3>Offline-First Salesman App</h3></div>
+          <span class="project-tag" style="color:var(--ok);border:1px solid var(--ok-dim)">Mobile</span>
+        </div>
+        <p class="project-meta">Flutter, SQLite, Odoo sync</p>
+        <p class="project-role">Role: maintenance developer on the mobile team at EBTECH</p>
+        <p class="project-desc">Joined an existing field-sales app as part of the mobile team, keeping it working with no internet connection and syncing everything back to Odoo once the salesperson is back online.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Maintained the local Inventory module tracking a salesman's mobile stock (products loaded onto their truck)</li>
+          <li>Bidirectional data sync with Odoo once connectivity returns</li>
+          <li>Integrated a portable Bluetooth receipt printer for in-field invoice printing</li>
+        </ul>
+        <p class="project-skills">offline-first sync · SQLite · Bluetooth hardware</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="fintech">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span><h3>Fleet Data Automation</h3></div>
+          <span class="project-tag" style="color:var(--warn);border:1px solid var(--warn-dim)">Automation</span>
+        </div>
+        <p class="project-meta">No public vendor API · Odoo 17</p>
+        <p class="project-role">Role: backend developer on the automation team at EBTECH</p>
+        <p class="project-desc">Part of the team solving fleet invoicing at EBTECH. I built the data-collection layer that automatically pulls trip, toll, and violation data from platforms with no official API — feeding accurate customer invoices.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Data-collection layer combining direct calls to discovered endpoints with browser automation for pages with no accessible endpoint</li>
+          <li>Managed authenticated sessions to reliably pull data per account</li>
+          <li>Normalized the results into internal tables, effectively creating an internal API layer for automated per-contract invoicing</li>
+        </ul>
+        <p class="project-skills">resilient data pipelines · session management · automated invoicing</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="saas">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><h3>Healthcare Center Management System</h3></div>
+          <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">Academic</span>
+        </div>
+        <p class="project-meta">Graduation project · Odoo 17 · 93%, top of class</p>
+        <p class="project-role">Role: backend developer, team of two</p>
+        <p class="project-desc">Final-year university project, built with one teammate: I owned the backend for a clinic system where each doctor only ever sees their own patients, and medical records are secured using blockchain, while my teammate built the Flutter client on top of the API contract we designed together.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Custom Appointments module tied to HR-based doctor shift schedules to validate availability</li>
+          <li>Per-doctor access control restricting visibility to a doctor's own appointments and patients</li>
+          <li>Blockchain-backed medical record storage using Ethereum, plus the full API layer connecting Odoo to my teammate's Flutter client</li>
+        </ul>
+        <p class="project-skills">custom modules · RBAC · Ethereum integration · cross-team API design</p>
+      </article>
+
+      <article class="project-card reveal" data-cat="mobile">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-dim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><h3>Bus &amp; Transportation Rental Tracker</h3></div>
+          <span class="project-tag" style="color:var(--text-dim);border:1px solid var(--border)">Freelance</span>
+        </div>
+        <p class="project-meta">Pre-Odoo freelance · Firebase/Firestore</p>
+        <p class="project-role">Role: independent freelance developer, solo build</p>
+        <p class="project-desc">My first professional project, before specializing in Odoo, and the one project on this page I built entirely solo: a mobile app and desktop dashboard for tracking a rental fleet, drivers, and billing.</p>
+        <p class="project-tech-label">my contributions</p>
+        <ul class="project-tech">
+          <li>Built both a mobile app and a desktop dashboard from scratch</li>
+          <li>Stored driver records and tracked fines/billing per rental</li>
+          <li>Firebase and Firestore as the complete backend, independently delivered</li>
+        </ul>
+        <p class="project-skills">Firebase/Firestore · cross-platform delivery</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EDUCATION / CERTS ===================== -->
+<section id="education">
+  <div class="wrap">
+    <p class="eyebrow">credentials/</p>
+    <h2 class="section-title">Education &amp; certifications</h2>
+    <div class="ed-cert-grid">
+      <div class="reveal">
+        <p class="subhead">education</p>
+        <div class="edu-card">
+          <h4>B.Eng. in Computer and Automation Engineering</h4>
+          <p class="meta">Damascus University, Syria — 2019 to 2025</p>
+          <p class="note">Key project: Healthcare Management System (Odoo + Flutter + Ethereum blockchain), 93% — top of class.</p>
+        </div>
+        <div class="lang-row">
+          <span class="lang-chip">Arabic — <b>Native</b></span>
+          <span class="lang-chip">English — <b>Advanced (B2)</b></span>
+          <span class="lang-chip">German — <b>Beginner (A1)</b></span>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="subhead">certifications</p>
+        <ul class="cert-list">
+          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/AKYPZ0QOPASY" target="_blank" rel="noopener">IBM Introduction to Software Engineering ↗</a><span class="cyear">2025</span></li>
+          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/1RXV0SKLH6L9" target="_blank" rel="noopener">IBM Introduction to Cloud Computing ↗</a><span class="cyear">2025</span></li>
+          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/D2ZQD5C743JR" target="_blank" rel="noopener">Google Foundations of User Experience (UX) Design ↗</a><span class="cyear">2025</span></li>
+          <li><a class="cname" href="https://drive.google.com/file/d/1qZQ9wN5SLrjUVWp6rvXlG4T3VgntBHsq/view" target="_blank" rel="noopener">Odoo Framework OWL — EBTECH Technologies ↗</a><span class="cyear">2024</span></li>
+          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/RS5KTCN9YN7Y" target="_blank" rel="noopener">Foundations of Cybersecurity — Google ↗</a><span class="cyear">2023</span></li>
+          <li><a class="cname" href="https://drive.google.com/file/d/1HGLRb0fI_c7FkcRUHxPmfdFmd-GfOoe9/view" target="_blank" rel="noopener">Odoo Developer — EBTECH Technologies ↗</a><span class="cyear">2023</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:36px;">
+      <p class="subhead">verification</p>
+      <div class="edu-card" style="padding:22px 22px 24px;">
+        <h4>Employment Verification Letter — EBTECH Technologies</h4>
+        <p class="meta">Signed letter confirming the EBTECH Technologies employment dates listed above.</p>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:14px 0 16px; background:var(--bg-elevated);">
+          <iframe src="https://drive.google.com/file/d/1xtt6H4hcRN5WmyETfK7fnQYBnFSneEmZ/preview" title="EBTECH Technologies employment verification letter preview" width="100%" height="480" style="display:block; border:0;" loading="lazy" allow="autoplay"></iframe>
+        </div>
+        <a class="btn btn-ghost" href="https://drive.google.com/file/d/1xtt6H4hcRN5WmyETfK7fnQYBnFSneEmZ/view?usp=sharing" target="_blank" rel="noopener">Open full document ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-panel reveal">
+      <div class="contact-inner">
+        <p class="prompt-line">$ cat contact.sh</p>
+        <h2>Let's talk about your team</h2>
+        <p>Open to full-time, EU-sponsored roles as an Odoo or backend developer. Reach out directly, or grab the CV below.</p>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <span class="k">email</span>
+            <a class="v" href="mailto:eng.ahmd.sltn@gmail.com">eng.ahmd.sltn@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <span class="k">phone</span>
+            <a class="v" href="tel:+963931458128">+963 931 458 128</a>
+          </div>
+          <div class="contact-item">
+            <span class="k">linkedin</span>
+            <a class="v" href="https://www.linkedin.com/in/ahmad-sultan-0150743ab" target="_blank" rel="noopener">/in/ahmad-sultan</a>
+          </div>
+          <div class="contact-item">
+            <span class="k">location</span>
+            <span class="v">Damascus, Syria</span>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="Ahmad_Sultan_CV_EU.docx" download>Download CV</a>
+          <a class="btn btn-ghost" href="mailto:eng.ahmd.sltn@gmail.com">Send an email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Ahmad Sultan — built from scratch, no framework.</p>
+</footer>
+
+<script>
+(function(){
+  // ---------- THEME ----------
+  var root = document.documentElement;
+  var toggle = document.getElementById('themeToggle');
+  var iconMoon = document.getElementById('iconMoon');
+  var iconSun = document.getElementById('iconSun');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function applyTheme(theme){
+    root.setAttribute('data-theme', theme);
+    if(theme === 'dark'){
+      iconMoon.style.display = 'block';
+      iconSun.style.display = 'none';
+    } else {
+      iconMoon.style.display = 'none';
+      iconSun.style.display = 'block';
+    }
+  }
+  applyTheme(prefersDark.matches ? 'dark' : 'light'); // respects system preference by default
+  prefersDark.addEventListener && prefersDark.addEventListener('change', function(e){
+    if(!window.__themeOverridden){ applyTheme(e.matches ? 'dark' : 'light'); }
+  });
+
+  toggle.addEventListener('click', function(){
+    window.__themeOverridden = true;
+    var current = root.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  // ---------- SCROLL REVEAL ----------
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  // ---------- HERO TERMINAL TYPE-IN ----------
+  var logs = [
+    { ts:'2026-02', tag:'AUDIT',   text:'Independent security audit of a production fintech e-wallet flagged critical API + architecture risks.' },
+    { ts:'2026-02', tag:'BUILD',   text:'Rebuilt REST API layer: registry, decorator-based routing, transaction-safe controllers.' },
+    { ts:'2026-02', tag:'AUTH',    text:'Shipped JWT + OTP authentication and a configurable KYC verification engine.' },
+    { ts:'verified',tag:'OSS',     text:'Extended the OCA audit_log module — IP logging, Pivot/Kanban views (public contribution).' },
+    { ts:'2024-25', tag:'COMPLY',  text:'Wired Odoo Accounting into a government e-invoicing API with QR-code verification.' },
+    { ts:'2023-26', tag:'SCALE',   text:'Contributed to 12+ ERP & mobile projects across 500+ users at EBTECH Technologies.' },
+    { ts:'status',  tag:'STATUS',  text:'15+ Odoo/Python projects · 3+ years documented · EU relocation-ready.' }
+  ];
+
+  var out = document.getElementById('logOutput');
+
+  function renderStatic(){
+    logs.forEach(function(l){
+      out.appendChild(buildLine(l, l.text));
+    });
+  }
+
+  function buildLine(l, text){
+    var line = document.createElement('div');
+    line.className = 'log-line';
+    var ts = document.createElement('span');
+    ts.className = 'log-ts';
+    ts.textContent = '[' + l.ts + ']';
+    var tag = document.createElement('span');
+    tag.className = 'log-tag tag-' + l.tag;
+    tag.textContent = l.tag;
+    var txt = document.createElement('span');
+    txt.className = 'log-text';
+    txt.textContent = text;
+    line.appendChild(ts); line.appendChild(tag); line.appendChild(txt);
+    return line;
+  }
+
+  if(reduceMotion){
+    renderStatic();
+  } else {
+    var i = 0;
+    function typeNext(){
+      if(i >= logs.length) return;
+      var l = logs[i];
+      var line = buildLine(l, '');
+      var txtSpan = line.querySelector('.log-text');
+      var cursor = document.createElement('span');
+      cursor.className = 'type-cursor';
+      line.appendChild(cursor);
+      out.appendChild(line);
+
+      var chars = l.text.split('');
+      var c = 0;
+      var speed = 14;
+      (function typeChar(){
+        if(c < chars.length){
+          txtSpan.textContent += chars[c];
+          c++;
+          setTimeout(typeChar, speed);
+        } else {
+          cursor.remove();
+          i++;
+          setTimeout(typeNext, 260);
+        }
+      })();
+    }
+    setTimeout(typeNext, 350);
+  }
+
+  // ---------- TECH TICKER (duplicate for seamless loop) ----------
+  var tickerTrack = document.getElementById('tickerTrack');
+  if(tickerTrack){
+    var originalItems = Array.prototype.slice.call(tickerTrack.children);
+    originalItems.forEach(function(item){
+      tickerTrack.appendChild(item.cloneNode(true));
+    });
+  }
+
+  // ---------- PROJECT FILTER ----------
+  var chips = document.querySelectorAll('.filter-chip');
+  var cards = document.querySelectorAll('.project-card');
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chips.forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      var f = chip.getAttribute('data-filter');
+      cards.forEach(function(card){
+        var show = (f === 'all' || card.getAttribute('data-cat') === f);
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
