@@ -420,20 +420,23 @@
     margin-bottom: 18px;
     border-bottom: 1px solid var(--border-soft);
   }
-  .avatar-circle{
-    width: 96px; height: 96px;
-    border-radius: 50%;
-    border: 1.5px dashed var(--border);
-    background: var(--bg-elevated);
-    display:flex; align-items:center; justify-content:center;
-    color: var(--text-dim);
+  .avatar-circle {
+      width: 180px;          /* Change to any size */
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+  
+      border: 4px solid #6c63ff;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
   }
-  .avatar-circle svg{ width: 40px; height: 40px; }
-  .avatar-caption{
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: var(--text-dim);
-    margin: 0;
+  
+  .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;     /* Keeps aspect ratio while filling the circle */
+      object-position: center top; /* Move the crop toward the face */
+      display: block;
   }
 
   /* ---------- SKILLS ---------- */
@@ -810,11 +813,10 @@
       <div class="about-meta reveal">
         <div class="avatar-placeholder">
           <div class="avatar-circle">
-            <img src="https://avatars.githubusercontent.com/u/302485723?s=400&u=b053e84ae02b2d4566c840cca16e7518530a46fd&v=4" alt="Ahmad Sultan" loading="lazy">
-            <!-- <img
-              src="https://drive.google.com/uc?export=view&id=12aNOsXlLd5DCtQLlBC933ggeqTnvIPUe"
+            <img
+              src="https://avatars.githubusercontent.com/u/302485723?s=400&u=b053e84ae02b2d4566c840cca16e7518530a46fd&v=4"
               alt="Ahmad Sultan"
-              class="avatar-img"> -->
+              class="avatar-img">
           </div>
         </div>
         <div class="row"><span>location</span><span>Damascus, Syria</span></div>
