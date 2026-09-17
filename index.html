@@ -3,12 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ahmad Sultan — Senior Full-Stack Odoo &amp; Python Developer</title>
-<meta name="description" content="Ahmad Sultan — Senior Full-Stack Odoo &amp; Python Developer. ERP, fintech, SaaS and secure backend systems.">
-<meta property="og:title" content="Ahmad Sultan — Senior Full-Stack Odoo &amp; Python Developer">
-<meta property="og:description" content="3+ years designing Odoo &amp; Python systems end-to-end — ERP, fintech, SaaS, and secure backend architecture. EU relocation-ready.">
+<title>Ahmad Sultan — Senior Odoo &amp; Python Developer</title>
+<meta name="description" content="Ahmad Sultan — Senior Odoo &amp; Python Developer. Odoo ERP, REST APIs, multi-tenant SaaS, e-invoicing compliance and secure backend architecture.">
+<meta property="og:title" content="Ahmad Sultan — Senior Odoo &amp; Python Developer">
+<meta property="og:description" content="3+ years and 15+ Odoo &amp; Python projects across ERP, SaaS, compliance and fintech. Odoo 14–19. Open to relocation within the EU.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230A0C10'/%3E%3Ctext x='12' y='17' font-family='monospace' font-size='14' font-weight='700' fill='%234FD8A0' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E">
+<script>
+  // Set theme before first paint to avoid a light/dark flash
+  (function(){
+    var saved = null;
+    try{ saved = localStorage.getItem('theme'); }catch(e){}
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,11 +25,9 @@
   :root{
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
     --radius-sm: 4px;
     --radius-md: 8px;
     --maxw: 1120px;
-
     --shadow-panel: 0 20px 60px -20px rgba(0,0,0,0.55);
   }
 
@@ -60,10 +67,11 @@
     --info: #1D6FA5;
     --info-dim: #CFE4F2;
     --scrim: rgba(255,255,255,0.86);
+    --shadow-panel: 0 20px 50px -24px rgba(23,27,34,0.25);
   }
 
   *{ box-sizing: border-box; }
-  html{ scroll-behavior: smooth; }
+  html{ scroll-behavior: smooth; scroll-padding-top: 72px; }
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior: auto; }
     *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
@@ -79,36 +87,24 @@
     -webkit-font-smoothing: antialiased;
     transition: background 0.25s ease, color 0.25s ease;
   }
-
   a{ color: inherit; }
-
-  .wrap{
-    max-width: var(--maxw);
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+  .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 
   /* ---------- NAV ---------- */
   header.nav{
     position: sticky; top:0; z-index: 50;
     background: var(--scrim);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-soft);
   }
   .nav-inner{
-    max-width: var(--maxw);
-    margin: 0 auto;
-    padding: 14px 24px;
-    display:flex; align-items:center; justify-content:space-between;
-    gap: 16px;
+    max-width: var(--maxw); margin: 0 auto; padding: 14px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap: 16px;
   }
   .brand{
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 0.2px;
-    display:flex; align-items:center; gap:2px;
-    white-space: nowrap;
+    font-family: var(--font-mono); font-weight: 600; font-size: 15px;
+    display:flex; align-items:center; gap:2px; white-space: nowrap; text-decoration:none;
   }
   .brand .prompt{ color: var(--ok); }
   .brand .path{ color: var(--text-muted); }
@@ -118,19 +114,14 @@
   }
   @keyframes blink{ 50%{ opacity:0; } }
 
-  nav.links{
-    display:flex; gap: 26px; align-items:center;
-  }
+  nav.links{ display:flex; gap: 24px; align-items:center; }
   nav.links a{
-    text-decoration:none;
-    color: var(--text-muted);
-    font-size: 14px;
-    font-weight: 500;
-    font-family: var(--font-mono);
-    letter-spacing: 0.2px;
+    text-decoration:none; color: var(--text-muted);
+    font-size: 14px; font-weight: 500; font-family: var(--font-mono);
     transition: color 0.15s ease;
   }
   nav.links a:hover, nav.links a:focus-visible{ color: var(--text); }
+  @media (max-width: 900px){ nav.links{ display:none; } }
 
   .nav-actions{ display:flex; align-items:center; gap:10px; }
 
@@ -140,9 +131,8 @@
     background: var(--bg-elevated);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    color: var(--text);
-    cursor:pointer;
-    transition: background 0.15s ease, border-color .15s ease;
+    color: var(--text); cursor:pointer;
+    transition: background 0.15s ease;
     flex-shrink: 0;
   }
   button.theme-toggle:hover, a.icon-btn:hover, button.hamburger:hover{ background: var(--bg-hover); }
@@ -150,82 +140,53 @@
 
   .btn{
     display:inline-flex; align-items:center; gap:8px;
-    font-family: var(--font-mono);
-    font-size: 13.5px;
-    font-weight: 600;
+    font-family: var(--font-mono); font-size: 13.5px; font-weight: 600;
     padding: 10px 16px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border);
-    text-decoration:none;
-    cursor:pointer;
-    transition: all 0.15s ease;
-    letter-spacing: 0.2px;
+    text-decoration:none; cursor:pointer;
+    transition: background 0.15s ease, filter 0.15s ease;
   }
-  .btn-primary{
-    background: var(--ok);
-    color: #071510;
-    border-color: var(--ok);
-  }
+  .btn-primary{ background: var(--ok); color: #071510; border-color: var(--ok); }
   html[data-theme="light"] .btn-primary{ color: #FFFFFF; }
-  .btn-primary:hover{ filter: brightness(1.08); transform: translateY(-1px); }
-  .btn-ghost{
-    background: transparent;
-    color: var(--text);
-  }
+  .btn-primary:hover{ filter: brightness(1.08); }
+  .btn-ghost{ background: transparent; color: var(--text); }
   .btn-ghost:hover{ background: var(--bg-elevated); }
 
   .nav-cta{ display:none; }
-  @media (min-width: 860px){ .nav-cta{ display:inline-flex; } }
+  @media (min-width: 900px){ .nav-cta{ display:inline-flex; } }
 
-  /* mobile nav links collapse */
-  @media (max-width: 860px){
-    nav.links{ display:none; }
-  }
-
-  /* ---------- MOBILE HAMBURGER MENU ---------- */
-  button.hamburger{ display:none; position:relative; }
-  @media (max-width: 860px){
-    button.hamburger{ display:flex; }
-  }
+  /* ---------- MOBILE MENU ---------- */
+  button.hamburger{ display:none; }
+  @media (max-width: 900px){ button.hamburger{ display:flex; } }
   button.hamburger svg{ width:20px; height:20px; }
   button.hamburger .icon-close{ display:none; }
   button.hamburger[aria-expanded="true"] .icon-open{ display:none; }
   button.hamburger[aria-expanded="true"] .icon-close{ display:block; }
 
   .mobile-menu{
-    max-height: 0;
-    overflow: hidden;
+    max-height: 0; overflow: hidden;
     background: var(--bg-panel);
     border-bottom: 1px solid var(--border-soft);
     transition: max-height 0.3s ease;
   }
-  .mobile-menu.open{ max-height: 320px; }
-  .mobile-menu-inner{
-    padding: 6px 24px 18px;
-    display:flex; flex-direction:column;
-  }
+  .mobile-menu.open{ max-height: 380px; }
+  .mobile-menu-inner{ padding: 6px 24px 18px; display:flex; flex-direction:column; }
   .mobile-menu-inner a{
-    text-decoration:none;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-    font-size: 14.5px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border-soft);
+    text-decoration:none; color: var(--text-muted);
+    font-family: var(--font-mono); font-size: 14.5px;
+    padding: 12px 0; border-bottom: 1px solid var(--border-soft);
   }
   .mobile-menu-inner a:last-child{ border-bottom:none; }
   .mobile-menu-inner a:hover{ color: var(--text); }
-  @media (min-width: 861px){ .mobile-menu{ display:none; } }
+  @media (min-width: 901px){ .mobile-menu{ display:none; } }
 
   /* ---------- SECTION SCAFFOLD ---------- */
   section{ padding: 88px 0; border-bottom: 1px solid var(--border-soft); }
   section:last-of-type{ border-bottom:none; }
 
   .eyebrow{
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-dim);
-    text-transform: lowercase;
-    letter-spacing: 0.3px;
+    font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim);
     margin: 0 0 10px;
   }
   .eyebrow::before{ content:"# "; color: var(--info); }
@@ -237,28 +198,15 @@
     margin: 0 0 34px;
     letter-spacing: -0.2px;
   }
-
-  .reveal{
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+  .section-intro{
+    color: var(--text-muted); font-size: 15px; max-width: 62ch;
+    margin: -18px 0 30px;
   }
-  .reveal.is-visible{ opacity: 1; transform: translateY(0); }
 
   /* ---------- HERO ---------- */
-  .hero{
-    padding: 64px 0 96px;
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap: 48px;
-    align-items:center;
-  }
-  @media (min-width: 980px){
-    .hero-grid{ grid-template-columns: 1.05fr 0.95fr; gap: 56px; }
-  }
+  .hero{ padding: 64px 0 96px; }
+  .hero-grid{ display:grid; grid-template-columns: 1fr; gap: 48px; align-items:center; }
+  @media (min-width: 980px){ .hero-grid{ grid-template-columns: 1.05fr 0.95fr; gap: 56px; } }
 
   .terminal{
     background: var(--bg-panel);
@@ -274,47 +222,25 @@
     border-bottom: 1px solid var(--border);
   }
   .dot{ width:11px; height:11px; border-radius:50%; }
-  .dot.r{ background:#EE6A5F; }
-  .dot.y{ background:#F5BD4F; }
-  .dot.g{ background:#61C454; }
+  .dot.r{ background:#EE6A5F; } .dot.y{ background:#F5BD4F; } .dot.g{ background:#61C454; }
   .terminal-title{
-    margin: 0 auto;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-dim);
+    margin: 0 auto; font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim);
     transform: translateX(-14px);
   }
   .terminal-body{
     padding: 20px 20px 26px;
-    font-family: var(--font-mono);
-    font-size: 13.2px;
-    min-height: 360px;
+    font-family: var(--font-mono); font-size: 13.2px;
+    min-height: 380px;
   }
-  .term-line-prompt{ color: var(--text-muted); margin-bottom: 14px; }
+  .term-line-prompt{ color: var(--text-muted); margin: 0 0 14px; }
   .term-line-prompt .sym{ color: var(--ok); }
 
-  .log-line{
-    display:flex; gap:10px; margin-bottom: 11px;
-    color: var(--text-muted);
-    line-height: 1.55;
-    flex-wrap: wrap;
-  }
-  .log-ts{ color: var(--text-dim); flex-shrink:0; }
-  .log-tag{
-    flex-shrink:0;
-    font-weight:700;
-    padding: 0 6px;
-    border-radius: 3px;
-    font-size: 12px;
-  }
-  .tag-AUDIT{ color: var(--warn); background: transparent; border:1px solid var(--warn-dim); }
-  .tag-BUILD{ color: var(--info); background: transparent; border:1px solid var(--info-dim); }
-  .tag-AUTH{ color: var(--info); background: transparent; border:1px solid var(--info-dim); }
-  .tag-OSS{ color: var(--ok); background: transparent; border:1px solid var(--ok-dim); }
-  .tag-COMPLY{ color: var(--ok); background: transparent; border:1px solid var(--ok-dim); }
-  .tag-SCALE{ color: var(--info); background: transparent; border:1px solid var(--info-dim); }
-  .tag-STATUS{ color: var(--ok); background: transparent; border:1px solid var(--ok-dim); }
-
+  .log-line{ margin-bottom: 11px; color: var(--text-muted); line-height: 1.6; }
+  .log-ts{ color: var(--text-dim); margin-right: 8px; }
+  .log-tag{ display:inline-block; font-weight:700; padding: 0 6px; border-radius: 3px; font-size: 12px; line-height: 1.5; margin-right: 8px; }
+  .tag-AUDIT{ color: var(--warn); border:1px solid var(--warn-dim); }
+  .tag-BUILD, .tag-AUTH, .tag-UPGRADE, .tag-SAAS{ color: var(--info); border:1px solid var(--info-dim); }
+  .tag-COMPLY, .tag-STATUS{ color: var(--ok); border:1px solid var(--ok-dim); }
   .log-text{ color: var(--text); }
   .type-cursor{
     display:inline-block; width:7px; height:14px; background: var(--ok);
@@ -322,44 +248,22 @@
     animation: blink 1s steps(1) infinite;
   }
 
-  .hero-copy .kicker{
-    font-family: var(--font-mono);
-    color: var(--ok);
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0 0 14px;
-  }
+  .hero-copy .kicker{ font-family: var(--font-mono); color: var(--ok); font-size: 14px; font-weight: 600; margin: 0 0 14px; }
   .hero-copy h1{
     font-family: var(--font-mono);
     font-size: clamp(34px, 5vw, 52px);
-    font-weight: 800;
-    line-height: 1.05;
-    margin: 0 0 14px;
-    letter-spacing: -0.5px;
+    font-weight: 800; line-height: 1.05;
+    margin: 0 0 16px; letter-spacing: -0.5px;
   }
-  .hero-copy .role{
-    font-size: 19px;
-    color: var(--text-muted);
-    margin: 0 0 22px;
-    font-weight: 500;
-  }
-  .hero-copy p.lede{
-    font-size: 16.5px;
-    color: var(--text-muted);
-    max-width: 46ch;
-    margin: 0 0 28px;
-  }
+  .hero-copy .role{ font-size: 19px; color: var(--text); margin: 0 0 16px; font-weight: 500; max-width: 42ch; line-height: 1.45; }
+  .hero-copy p.lede{ font-size: 16px; color: var(--text-muted); max-width: 48ch; margin: 0 0 28px; }
   .hero-actions{ display:flex; flex-wrap:wrap; gap: 12px; margin-bottom: 30px; align-items:center; }
 
   .stat-row{ display:flex; flex-wrap:wrap; gap: 10px; }
   .stat-chip{
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-muted);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 7px 13px;
-    background: var(--bg-panel);
+    font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 7px 13px; background: var(--bg-panel);
   }
   .stat-chip b{ color: var(--text); }
 
@@ -368,185 +272,115 @@
     border-top: 1px solid var(--border-soft);
     border-bottom: 1px solid var(--border-soft);
     background: var(--bg-panel);
-    overflow: hidden;
-    position: relative;
-    padding: 16px 0;
+    overflow: hidden; position: relative; padding: 16px 0;
   }
   .ticker-wrap::before, .ticker-wrap::after{
-    content:"";
-    position:absolute; top:0; bottom:0; width:80px; z-index:2;
-    pointer-events:none;
+    content:""; position:absolute; top:0; bottom:0; width:80px; z-index:2; pointer-events:none;
   }
   .ticker-wrap::before{ left:0; background: linear-gradient(90deg, var(--bg-panel), transparent); }
   .ticker-wrap::after{ right:0; background: linear-gradient(270deg, var(--bg-panel), transparent); }
   .ticker-track{
-    display:flex;
-    align-items:center;
-    gap: 42px;
-    width: max-content;
-    animation: ticker-scroll 32s linear infinite;
+    display:flex; align-items:center; gap: 42px; width: max-content;
+    animation: ticker-scroll 30s linear infinite;
   }
   .ticker-wrap:hover .ticker-track{ animation-play-state: paused; }
-  @keyframes ticker-scroll{
-    from{ transform: translateX(0); }
-    to{ transform: translateX(-50%); }
-  }
+  @keyframes ticker-scroll{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
   .ticker-item{
     display:flex; align-items:center; gap:10px;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-muted);
-    white-space: nowrap;
+    font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); white-space: nowrap;
   }
   .ticker-item img{ width: 22px; height: 22px; object-fit: contain; flex-shrink:0; }
   .ticker-item span{ color: var(--text); }
-  /* Flask, Linux, and Firebase-plain ship as solid-black marks; invert for dark theme, keep as-is on light */
-  html[data-theme="dark"] .ticker-item img[alt="Flask"],
-  html[data-theme="dark"] .ticker-item img[alt="Linux"]{
-    filter: invert(1) brightness(1.6);
-  }
+  html[data-theme="dark"] .ticker-item img[alt="Linux"]{ filter: invert(1) brightness(1.6); }
   @media (prefers-reduced-motion: reduce){
     .ticker-track{ animation: none; }
     .ticker-wrap{ overflow-x: auto; }
   }
 
   /* ---------- ABOUT ---------- */
-  .about-panel{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  @media (min-width: 860px){
-    .about-panel{ grid-template-columns: 1.2fr 0.8fr; }
-  }
-  .about-text p{
-    font-size: 17.5px;
-    color: var(--text-muted);
-    max-width: 62ch;
-    margin: 0 0 18px;
-  }
+  .about-panel{ display:grid; grid-template-columns: 1fr; gap: 40px; }
+  @media (min-width: 860px){ .about-panel{ grid-template-columns: 1.2fr 0.8fr; } }
+  .about-text p{ font-size: 17px; color: var(--text-muted); max-width: 62ch; margin: 0 0 18px; }
   .about-text p strong{ color: var(--text); font-weight:600; }
-  .about-text p.about-prompt{
-    font-family: var(--font-mono);
-    font-size: 14px;
-    color: var(--text-dim);
-    margin-bottom: 18px;
-  }
+  .about-text p.about-prompt{ font-family: var(--font-mono); font-size: 14px; color: var(--text-dim); }
   .about-text p.about-prompt .sym{ color: var(--ok); }
 
   .about-meta{
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--bg-panel);
-    padding: 22px 22px;
-    font-family: var(--font-mono);
-    font-size: 13.5px;
+    border: 1px solid var(--border); border-radius: var(--radius-md);
+    background: var(--bg-panel); padding: 22px;
+    font-family: var(--font-mono); font-size: 13.5px;
+    align-self: start;
   }
   .about-meta .row{
     display:flex; justify-content:space-between; gap: 12px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--border-soft);
-    color: var(--text-muted);
+    padding: 9px 0; border-bottom: 1px solid var(--border-soft);
   }
   .about-meta .row:last-child{ border-bottom:none; }
   .about-meta .row span:first-child{ color: var(--text-dim); }
   .about-meta .row span:last-child{ color: var(--text); text-align:right; }
 
-  .avatar-placeholder{
-    display:flex; flex-direction:column; align-items:center;
-    gap: 10px;
-    padding-bottom: 20px;
-    margin-bottom: 18px;
+  .avatar{
+    display:flex; justify-content:center;
+    padding-bottom: 20px; margin-bottom: 10px;
     border-bottom: 1px solid var(--border-soft);
   }
-  .avatar-circle {
-      width: 180px;          /* Change to any size */
-      height: 180px;
-      border-radius: 50%;
-      overflow: hidden;
-      flex-shrink: 0;
-  
-      border: 4px solid #6c63ff;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  .avatar-circle{
+    width: 148px; height: 148px; border-radius: 50%; overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 0 5px var(--bg-elevated), 0 0 0 6px var(--border);
   }
-  
-  .avatar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;     /* Keeps aspect ratio while filling the circle */
-      object-position: center top; /* Move the crop toward the face */
-      display: block;
-  }
+  .avatar-img{ width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 
   /* ---------- SKILLS ---------- */
-  .skills-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 18px;
-  }
+  .skills-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
   .skill-card{
-    border: 1px solid var(--border);
-    background: var(--bg-panel);
-    border-radius: var(--radius-md);
-    padding: 20px 20px 18px;
-    transition: border-color .2s ease, transform .2s ease;
+    border: 1px solid var(--border); background: var(--bg-panel);
+    border-radius: var(--radius-md); padding: 20px 20px 18px;
+    transition: border-color .2s ease;
   }
-  .skill-card:hover{ border-color: var(--text-dim); transform: translateY(-2px); }
+  .skill-card:hover{ border-color: var(--text-dim); }
   .skill-card .filename{
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 700;
-    margin: 0 0 12px;
-    display:flex; align-items:flex-start; gap:8px;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+    margin: 0 0 12px; display:flex; align-items:flex-start; gap:8px;
   }
   .skill-card .filename::before{ content:"›"; color: var(--ok); flex-shrink:0; }
-  .skill-card .filename span{
-    min-width: 0;
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
-  .skill-card p{
-    margin:0; color: var(--text-muted); font-size: 14.5px; line-height:1.65;
-  }
+  .skill-card p{ margin:0; color: var(--text-muted); font-size: 14.5px; line-height:1.65; }
 
   /* ---------- EXPERIENCE / CHANGELOG ---------- */
   .changelog{ display:flex; flex-direction:column; gap: 26px; }
   .release{
-    border: 1px solid var(--border);
-    background: var(--bg-panel);
-    border-radius: var(--radius-md);
-    padding: 24px 26px;
+    border: 1px solid var(--border); background: var(--bg-panel);
+    border-radius: var(--radius-md); padding: 24px 26px;
   }
+  @media (max-width: 640px){ .release{ padding: 20px 18px; } }
   .release-head{
-    display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:10px;
-    margin-bottom: 14px;
-    padding-bottom: 14px;
+    display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 14px;
+    margin-bottom: 14px; padding-bottom: 14px;
     border-bottom: 1px dashed var(--border);
   }
-  .release-version{
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 16.5px;
-    color: var(--text);
-  }
+  .release-title{ margin:0; font-size: 18px; font-weight: 600; color: var(--text); }
+  .release-company{ margin: 2px 0 0; font-size: 14.5px; color: var(--text-muted); }
+  .release-version{ font-family: var(--font-mono); font-weight: 700; font-size: 14px; color: var(--text); white-space: nowrap; }
   .release-version .brackets{ color: var(--ok); }
-  .release-meta{
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-dim);
+
+  .positions{
+    list-style:none; margin: 0 0 16px; padding: 0;
+    border-left: 2px solid var(--border); 
   }
+  .positions li{
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap: 4px 14px;
+    padding: 6px 0 6px 14px; font-size: 15px;
+  }
+  .positions .p-title{ color: var(--text); font-weight: 500; }
+  .positions .p-type{ color: var(--text-dim); font-weight: 400; }
+  .positions .p-dates{ font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim); }
+
   .change-group{ margin-bottom: 14px; }
   .change-group:last-child{ margin-bottom:0; }
   .change-label{
-    display:inline-block;
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 2px 8px;
-    border-radius: 3px;
-    margin-bottom: 8px;
+    display:inline-block; font-family: var(--font-mono);
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.3px;
+    padding: 2px 8px; border-radius: 3px; margin-bottom: 8px;
   }
   .change-label.added{ color: var(--info); border:1px solid var(--info-dim); }
   .change-label.security{ color: var(--warn); border:1px solid var(--warn-dim); }
@@ -556,242 +390,133 @@
   .change-list li::marker{ color: var(--text-dim); }
 
   /* ---------- PROJECTS ---------- */
-  .filter-row{
-    display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 30px;
-  }
+  .filter-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 30px; }
   .filter-chip{
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    padding: 7px 13px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--bg-panel);
-    color: var(--text-muted);
-    cursor:pointer;
-    transition: all .15s ease;
+    font-family: var(--font-mono); font-size: 12.5px;
+    padding: 7px 13px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--bg-panel); color: var(--text-muted);
+    cursor:pointer; transition: border-color .15s ease, color .15s ease, background .15s ease;
   }
   .filter-chip:hover{ border-color: var(--text-dim); color: var(--text); }
   .filter-chip.active{ background: var(--ok); border-color: var(--ok); color:#071510; }
   html[data-theme="light"] .filter-chip.active{ color:#FFFFFF; }
 
   .project-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-bottom: 36px;
+    display:grid; grid-template-columns: 1fr;
+    gap: 20px; margin-bottom: 40px;
   }
+  @media (min-width: 820px){ .project-grid{ grid-template-columns: repeat(2, 1fr); } }
   .project-card{
-    border: 1px solid var(--border);
-    background: var(--bg-panel);
-    border-radius: var(--radius-md);
-    padding: 22px 22px 20px;
+    border: 1px solid var(--border); background: var(--bg-panel);
+    border-radius: var(--radius-md); padding: 22px 22px 20px;
     display:flex; flex-direction:column;
-    transition: transform .2s ease, border-color .2s ease;
+    transition: border-color .2s ease;
   }
-  .project-card:hover{ transform: translateY(-3px); border-color: var(--text-dim); }
-  .project-top{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; margin-bottom: 10px; }
+  .project-card:hover{ border-color: var(--text-dim); }
+  .project-top{ display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom: 12px; }
   .project-heading{ display:flex; align-items:center; gap:12px; min-width:0; }
   .project-avatar{
-    flex-shrink:0;
-    width: 38px; height: 38px;
-    border-radius: 9px;
-    display:flex; align-items:center; justify-content:center;
-    border: 1px solid;
+    flex-shrink:0; width: 38px; height: 38px; border-radius: 9px;
+    display:flex; align-items:center; justify-content:center; border: 1px solid;
   }
   .project-avatar svg{ width: 19px; height: 19px; }
   .project-avatar.cat-warn{ color: var(--warn); border-color: var(--warn-dim); background: color-mix(in srgb, var(--warn) 10%, transparent); }
   .project-avatar.cat-info{ color: var(--info); border-color: var(--info-dim); background: color-mix(in srgb, var(--info) 10%, transparent); }
   .project-avatar.cat-ok{ color: var(--ok); border-color: var(--ok-dim); background: color-mix(in srgb, var(--ok) 10%, transparent); }
-  .project-avatar.cat-dim{ color: var(--text-dim); border-color: var(--border); background: var(--bg-elevated); }
-  .project-card h3{
-    font-family: var(--font-mono);
-    font-size: 15.5px;
-    margin: 0;
-    line-height:1.4;
-  }
-  .project-tag {
-    width: 110px;
-    height: 34px;
+  .project-card h3{ font-family: var(--font-mono); font-size: 15.5px; margin: 0; line-height:1.4; }
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-  }
-  /* .project-tag{
+  .project-tag{
+    display:inline-flex; align-items:center; justify-content:center;
     flex-shrink:0;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    font-weight:700;
-    padding: 3px 8px;
-    border-radius: 4px;
-    white-space: nowrap;
-    text-transform: uppercase;
-    letter-spacing: .3px;
-  } */
-  .project-meta{
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-dim);
-    margin: 0 0 4px;
+    font-family: var(--font-mono); font-size: 11px; font-weight:700;
+    padding: 3px 9px; border-radius: 4px; white-space: nowrap;
+    border: 1px solid var(--border); color: var(--text-dim);
   }
-  .project-role{
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: var(--info);
-    margin: 0 0 12px;
-    font-style: italic;
-  }
-  .project-desc{
-    font-size: 14.5px;
-    color: var(--text-muted);
-    margin: 0 0 14px;
-    flex-grow:1;
-    line-height:1.6;
-  }
-  .project-tech-label{
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    margin: 0 0 8px;
-  }
+  .project-tag.t-warn{ color: var(--warn); border-color: var(--warn-dim); }
+  .project-tag.t-info{ color: var(--info); border-color: var(--info-dim); }
+  .project-tag.t-ok{ color: var(--ok); border-color: var(--ok-dim); }
+
+  .project-meta{ font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); margin: 0 0 4px; }
+  .project-role{ font-size: 13.5px; color: var(--info); margin: 0 0 12px; }
+  .project-desc{ font-size: 14.5px; color: var(--text-muted); margin: 0 0 14px; line-height:1.6; }
+  .project-tech-label{ font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin: 0 0 8px; }
   .project-tech-label::before{ content:"// "; }
-  ul.project-tech{
-    margin: 0 0 14px;
-    padding-left: 18px;
-    color: var(--text-muted);
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  ul.project-tech li{ margin-bottom: 5px; }
-  ul.project-tech li::marker{ color: var(--text-dim); }
   .project-skills{
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: var(--text-dim);
-    padding-top: 12px;
-    border-top: 1px solid var(--border-soft);
-    line-height:1.7;
-    margin-top: auto;
+    font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
+    padding-top: 12px; border-top: 1px solid var(--border-soft);
+    line-height:1.7; margin: auto 0 0;
   }
 
-  /* ---------- FLAGSHIP DIAGRAM ---------- */
+  /* ---------- DIAGRAMS ---------- */
   .project-diagram{
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius-sm);
-    padding: 14px 10px;
-    margin: 0 0 14px;
+    background: var(--bg-elevated); border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm); padding: 14px 10px; margin: 0 0 14px;
   }
   .project-diagram svg{ display:block; width:100%; height:auto; }
-  .diagram-caption{
-    margin: 0 0 14px;
-    padding-left: 18px;
-    color: var(--text-muted);
-    font-size: 13px;
-    line-height: 1.6;
-  }
+  .dg-box{ fill: none; stroke-width: 1.5; }
+  .dg-box.w{ stroke: var(--warn); } .dg-box.i{ stroke: var(--info); } .dg-box.o{ stroke: var(--ok); }
+  .dg-box.d{ stroke: var(--text-dim); stroke-width: 1.3; }
+  .dg-t{ font-family: var(--font-mono); font-size: 8.5px; text-anchor: middle; }
+  .dg-t.w{ fill: var(--warn); } .dg-t.i{ fill: var(--info); } .dg-t.o{ fill: var(--ok); } .dg-t.d{ fill: var(--text-muted); }
+  .dg-line{ stroke: var(--text-dim); stroke-width: 1.5; }
+  .dg-line.thin{ stroke-width: 1; }
+  .dg-head{ fill: var(--text-dim); }
+  .diagram-caption{ margin: 0 0 14px; padding-left: 18px; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
   .diagram-caption li{ margin-bottom: 5px; }
   .diagram-caption li::marker{ color: var(--text-dim); }
 
-  /* ---------- COMPACT SECONDARY PROJECT LIST ---------- */
-  .compact-list-label{
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    margin: 0 0 14px;
-  }
+  /* ---------- COMPACT PROJECT LIST ---------- */
+  .compact-list-label{ font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim); margin: 0 0 14px; }
   .compact-list{
     display:flex; flex-direction:column;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--bg-panel);
-    overflow: hidden;
+    border: 1px solid var(--border); border-radius: var(--radius-md);
+    background: var(--bg-panel); overflow: hidden;
   }
   .compact-row{
     display:flex; align-items:center; gap: 14px;
-    padding: 15px 18px;
-    border-bottom: 1px solid var(--border-soft);
-    cursor: pointer;
-    transition: background .15s ease;
+    padding: 15px 18px; border-bottom: 1px solid var(--border-soft);
+    cursor: pointer; transition: background .15s ease;
   }
-  .compact-row:last-child{ border-bottom:none; }
   .compact-row:hover{ background: var(--bg-hover); }
-  .compact-row .project-tag{ flex-shrink:0; }
+  .compact-row .project-tag{ min-width: 96px; }
+  @media (max-width: 560px){ .compact-row .project-tag{ display:none; } }
   .compact-row-main{ flex: 1; min-width:0; }
-  .compact-row-title{
-    font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-    margin: 0 0 3px;
-  }
-  .compact-row-sub{
-    font-size: 13px;
-    color: var(--text-muted);
-    margin:0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .compact-row-chevron{
-    flex-shrink:0;
-    color: var(--text-dim);
-    transition: transform .2s ease;
-  }
+  .compact-row-title{ font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--text); margin: 0 0 3px; }
+  .compact-row-sub{ font-size: 13px; color: var(--text-muted); margin:0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .compact-row-chevron{ flex-shrink:0; color: var(--text-dim); transition: transform .2s ease; }
   .compact-row-chevron svg{ width:16px; height:16px; display:block; }
   .compact-row.is-open .compact-row-chevron{ transform: rotate(90deg); }
   .compact-row-detail{
-    padding: 0 18px;
-    max-height: 0;
-    overflow: hidden;
+    padding: 0 18px; max-height: 0; overflow: hidden;
     background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-soft);
     transition: max-height .3s ease, padding .3s ease;
   }
-  .compact-row-detail.open{ padding: 16px 18px 18px; max-height: 400px; }
-  .compact-row-detail ul{ margin: 0 0 10px; padding-left: 18px; color: var(--text-muted); font-size: 13px; line-height:1.6; }
+  .compact-list > .compact-row-detail:last-child{ border-bottom: none; }
+  .compact-row-detail.open{ padding: 16px 18px 18px; max-height: 480px; }
+  .compact-row-detail ul{ margin: 0 0 10px; padding-left: 18px; color: var(--text-muted); font-size: 13.5px; line-height:1.6; }
   .compact-row-detail ul li::marker{ color: var(--text-dim); }
-  .compact-row-detail .project-skills{ border-top:none; padding-top:0; margin-top:0; }
+  .compact-row-detail .project-skills{ border-top:none; padding-top:0; }
+  .compact-row-detail .project-role{ margin-bottom: 8px; }
 
   /* ---------- EDUCATION / CERTS ---------- */
-  .ed-cert-grid{
-    display:grid; grid-template-columns: 1fr; gap: 36px;
-  }
+  .ed-cert-grid{ display:grid; grid-template-columns: 1fr; gap: 36px; }
   @media (min-width: 860px){ .ed-cert-grid{ grid-template-columns: 1fr 1fr; } }
-  .subhead{
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    margin: 0 0 16px;
-  }
-  .edu-card{
-    border: 1px solid var(--border);
-    background: var(--bg-panel);
-    border-radius: var(--radius-md);
-    padding: 20px 22px;
-  }
+  .subhead{ font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); margin: 0 0 16px; }
+  .edu-card{ border: 1px solid var(--border); background: var(--bg-panel); border-radius: var(--radius-md); padding: 20px 22px; }
   .edu-card h4{ margin: 0 0 6px; font-size: 16px; }
   .edu-card .meta{ color: var(--text-muted); font-size: 14px; margin: 0 0 10px; }
-  .edu-card .note{ color: var(--text-dim); font-size: 13.5px; font-style: italic; margin:0; }
+  .edu-card .note{ color: var(--text-dim); font-size: 13.5px; margin:0; }
 
   ul.cert-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
   ul.cert-list li{
-    display:flex; justify-content:space-between; gap:10px;
-    border: 1px solid var(--border);
-    background: var(--bg-panel);
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    font-size: 14px;
+    display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+    border: 1px solid var(--border); background: var(--bg-panel);
+    border-radius: var(--radius-sm); padding: 12px 16px; font-size: 14px;
   }
   ul.cert-list li .cname{ color: var(--text); text-decoration:none; transition: color .15s ease; }
   ul.cert-list li .cname:hover{ color: var(--ok); }
+  ul.cert-list li .issuer{ color: var(--text-dim); }
   ul.cert-list li .cyear{ font-family: var(--font-mono); color: var(--text-dim); font-size: 12.5px; flex-shrink:0; }
 
   .lang-row{ display:flex; flex-wrap:wrap; gap: 12px; margin-top: 22px; }
@@ -802,46 +527,53 @@
   }
   .lang-chip b{ color: var(--text); }
 
+  details.verify{
+    margin-top: 36px;
+    border: 1px solid var(--border); background: var(--bg-panel);
+    border-radius: var(--radius-md);
+  }
+  details.verify summary{
+    list-style: none; cursor: pointer;
+    display:flex; justify-content:space-between; align-items:center; gap: 16px;
+    padding: 18px 22px;
+  }
+  details.verify summary::-webkit-details-marker{ display:none; }
+  details.verify summary h4{ margin: 0 0 4px; font-size: 16px; }
+  details.verify summary p{ margin: 0; color: var(--text-muted); font-size: 14px; }
+  details.verify .chev{ color: var(--text-dim); transition: transform .2s ease; flex-shrink:0; }
+  details.verify .chev svg{ width:16px; height:16px; display:block; }
+  details.verify[open] .chev{ transform: rotate(90deg); }
+  .verify-body{ padding: 0 22px 22px; }
+  .verify-frame{
+    border:1px solid var(--border); border-radius:var(--radius-sm);
+    overflow:hidden; margin: 0 0 16px; background:var(--bg-elevated);
+  }
+  .verify-frame iframe{ display:block; width:100%; height:480px; border:0; }
+
   /* ---------- CONTACT ---------- */
   .contact-panel{
-    border: 1px solid var(--border);
-    background: var(--bg-panel);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-panel);
-    overflow:hidden;
+    border: 1px solid var(--border); background: var(--bg-panel);
+    border-radius: var(--radius-md); box-shadow: var(--shadow-panel); overflow:hidden;
   }
   .contact-inner{ padding: 40px 40px 36px; }
   @media (max-width: 640px){ .contact-inner{ padding: 30px 22px; } }
-  .contact-inner .prompt-line{
-    font-family: var(--font-mono); color: var(--text-dim); font-size: 13px; margin-bottom: 18px;
-  }
-  .contact-inner h2{
-    font-family: var(--font-mono);
-    font-size: clamp(22px,3.4vw,30px);
-    margin: 0 0 14px;
-  }
-  .contact-inner p{
-    color: var(--text-muted); font-size: 16px; max-width: 56ch; margin: 0 0 28px;
-  }
-  .contact-grid{
-    display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; margin-bottom: 30px;
-  }
+  .contact-inner .prompt-line{ font-family: var(--font-mono); color: var(--text-dim); font-size: 13px; margin: 0 0 18px; }
+  .contact-inner h2{ font-family: var(--font-mono); font-size: clamp(22px,3.4vw,30px); margin: 0 0 14px; }
+  .contact-inner > p{ color: var(--text-muted); font-size: 16px; max-width: 56ch; margin: 0 0 28px; }
+  .contact-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; margin-bottom: 30px; }
   .contact-item{
     border:1px solid var(--border); border-radius: var(--radius-sm);
     padding: 14px 16px; font-family: var(--font-mono); font-size: 13.5px;
     display:flex; flex-direction:column; gap:6px;
   }
-  .contact-item .k{ color: var(--text-dim); font-size:11.5px; text-transform:uppercase; letter-spacing:.4px; }
+  .contact-item .k{ color: var(--text-dim); font-size:11.5px; }
   .contact-item .v{ color: var(--text); text-decoration:none; word-break:break-word; }
-  .contact-item .v:hover{ color: var(--ok); }
+  .contact-item a.v:hover{ color: var(--ok); }
   .contact-actions{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
 
   footer{
-    text-align:center;
-    padding: 30px 24px 40px;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-dim);
+    text-align:center; padding: 30px 24px 40px;
+    font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim);
   }
 
   :focus-visible{ outline: 2px solid var(--info); outline-offset: 2px; }
@@ -851,28 +583,26 @@
 
 <header class="nav">
   <div class="nav-inner">
-    <div class="brand">
-      <span class="prompt">ahmad@sultan</span><span class="path">:~$</span><span class="cursor"></span>
-    </div>
-    <nav class="links">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <span class="prompt">ahmad@sultan</span><span class="path">:~$</span><span class="cursor" aria-hidden="true"></span>
+    </a>
+    <nav class="links" aria-label="Primary">
       <a href="#about">about</a>
       <a href="#experience">experience</a>
       <a href="#projects">projects</a>
       <a href="#skills">skills</a>
+      <a href="#education">education</a>
       <a href="#contact">contact</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-primary nav-cta" href="https://drive.google.com/file/d/1yTGdtGtv4vKU89Dv3eCcnlrrC0uC9_8M/view" target="_blank" download>Download CV</a>
-      <a class="icon-btn" href="https://github.com/engahmdsltn-ops" target="_blank" rel="noopener" aria-label="GitHub profile" title="GitHub">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
-      </a>
+      <a class="btn btn-primary nav-cta" href="https://drive.google.com/file/d/1yTGdtGtv4vKU89Dv3eCcnlrrC0uC9_8M/view" target="_blank" rel="noopener">View CV</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme" title="Toggle theme">
         <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
       </button>
       <button class="hamburger" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
-        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
   </div>
@@ -882,68 +612,65 @@
       <a href="#experience">experience</a>
       <a href="#projects">projects</a>
       <a href="#skills">skills</a>
+      <a href="#education">education</a>
       <a href="#contact">contact</a>
+      <a href="https://drive.google.com/file/d/1yTGdtGtv4vKU89Dv3eCcnlrrC0uC9_8M/view" target="_blank" rel="noopener">view cv</a>
     </div>
   </div>
 </header>
 
+<main id="top">
+
 <!-- ===================== HERO ===================== -->
 <section class="hero">
   <div class="wrap hero-grid">
-    <div class="terminal reveal">
+    <div class="terminal">
       <div class="terminal-bar">
         <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
         <p class="terminal-title">ahmad@sultan — audit_trail.log</p>
       </div>
-      <div class="terminal-body">
+      <div class="terminal-body" aria-label="Selected achievements, shown as log entries">
         <p class="term-line-prompt"><span class="sym">$</span> tail -f audit_trail.log</p>
         <div id="logOutput"></div>
       </div>
     </div>
 
-    <div class="hero-copy reveal">
-      <p class="kicker">// Senior Full-Stack Odoo &amp; python developer</p>
+    <div class="hero-copy">
+      <p class="kicker">// senior odoo &amp; python developer</p>
       <h1>Ahmad Sultan</h1>
-      <p class="role">I help build the ERP and fintech backends companies trust with real money and real data.</p>
-      <p class="lede">3+ years designing Odoo &amp; Python systems end-to-end — architecture, APIs, and the security decisions that hold them together. Based in Damascus, open to relocating for EU sponsorship.</p>
+      <p class="role">I build Odoo systems end to end: accounting, inventory and POS, the APIs that connect them, and the security decisions that hold it all together.</p>
+      <p class="lede">Senior Odoo Developer at Apollo Group. Over 3+ years I've delivered or contributed to 15+ projects on Odoo 14–19, from ERP rollouts and a multi-tenant SaaS platform to government e-invoicing and a production fintech platform. Open to relocation within the EU.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="https://drive.google.com/file/d/1yTGdtGtv4vKU89Dv3eCcnlrrC0uC9_8M/view" target="_blank" download>Download CV</a>
+        <a class="btn btn-primary" href="https://drive.google.com/file/d/1yTGdtGtv4vKU89Dv3eCcnlrrC0uC9_8M/view" target="_blank" rel="noopener">View CV</a>
         <a class="btn btn-ghost" href="mailto:eng.ahmd.sltn@gmail.com">Email me</a>
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/ahmad-sultan-0150743ab" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn btn-ghost" href="https://github.com/engahmdsltn-ops" target="_blank" rel="noopener">GitHub</a>
-        <!-- <a class="icon-btn" href="https://github.com/engahmdsltn-ops" target="_blank" rel="noopener" aria-label="GitHub profile" title="GitHub">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
-        </a> -->
       </div>
       <div class="stat-row">
         <span class="stat-chip"><b>3+</b> years</span>
-        <span class="stat-chip"><b>15+</b> projects contributed to</span>
+        <span class="stat-chip"><b>15+</b> projects</span>
         <span class="stat-chip">Odoo <b>14–19</b></span>
-        <span class="stat-chip"><b>EU</b> relocation-ready</span>
+        <span class="stat-chip">Open to <b>EU</b> relocation</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===================== TECH TICKER ===================== -->
-<div class="ticker-wrap" role="marquee" aria-label="Technologies and frameworks">
+<div class="ticker-wrap" aria-label="Technologies I work with">
   <div class="ticker-track" id="tickerTrack">
     <span class="ticker-item"><img src="https://cdn.simpleicons.org/odoo/714B67" alt="Odoo" loading="lazy"><span>Odoo</span></span>
     <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy"><span>Python</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy"><span>JavaScript</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" loading="lazy"><span>Flutter</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" loading="lazy"><span>React</span></span>
     <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" loading="lazy"><span>PostgreSQL</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" loading="lazy"><span>MongoDB</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy"><span>JavaScript / OWL</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" alt="Swagger" loading="lazy"><span>Swagger / OpenAPI</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman" loading="lazy"><span>Postman</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" loading="lazy"><span>Flutter</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" loading="lazy"><span>Firebase</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite" loading="lazy"><span>SQLite</span></span>
+    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" alt="Selenium" loading="lazy"><span>Selenium</span></span>
     <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" loading="lazy"><span>Docker</span></span>
     <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" loading="lazy"><span>Git</span></span>
     <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" loading="lazy"><span>Linux</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="Flask" loading="lazy"><span>Flask</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI" loading="lazy"><span>FastAPI</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" loading="lazy"><span>Django</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" loading="lazy"><span>Firebase</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" loading="lazy"><span>HTML5</span></span>
-    <span class="ticker-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" loading="lazy"><span>CSS3</span></span>
   </div>
 </div>
 
@@ -953,29 +680,459 @@
     <p class="eyebrow">about</p>
     <h2 class="section-title">Behind the log entries</h2>
     <div class="about-panel">
-      <div class="about-text reveal">
+      <div class="about-text">
         <p class="about-prompt"><span class="sym">$</span> whoami</p>
-        <p>I'm Ahmad — a Senior Full-Stack Odoo and Python developer who likes owning a project end to end: the database schema, the API, the security decisions around it, and the app someone actually opens on their phone.</p>
-        <p>Three-plus years in, I've shipped or contributed to <strong>15+ projects</strong> — ERP rollouts, a multi-tenant SaaS platform, government compliance integrations, and a fintech wallet that moves real customer money. One of those started as a security audit I ran myself, which turned into leading the remediation team through the rebuild.</p>
-        <p>None of that happens solo. I gather requirements directly with clients, hand off clean API contracts to the frontend and mobile teams I work alongside, review code for the people I mentor, and stay on the phone with hardware vendors until an integration actually works. I'm equally comfortable writing the code and explaining it to a non-technical stakeholder.</p>
-        <p>I'm based in Damascus and looking for my next role in the <strong>EU</strong>, where I can keep building backend systems that are reliable, well-structured, and secure by design — as part of a team, not in isolation.</p>
+        <p>I'm Ahmad, a Senior Odoo Developer at Apollo Group. I work across the whole backend of an Odoo system: the data model, the business logic, the APIs, and the authentication and access decisions around them. When a project needs it, I build the Flutter app on top as well.</p>
+        <p>Over three-plus years I've delivered or contributed to <strong>15+ projects</strong> on Odoo 14 through 19: accounting and inventory customizations, POS and e-commerce builds, a multi-tenant SaaS platform, a government e-invoicing integration, and version migrations. My current engagement began as a security and code-quality audit of a production fintech platform and continued with me leading its architectural remediation.</p>
+        <p>Much of the work happens between people. I gather requirements with clients, agree API contracts with frontend and mobile developers, work through integration gaps with hardware vendors, and write the documentation the next developer builds on.</p>
+        <p>I'm looking for my next role in the <strong>EU</strong>, on a team that cares about well-structured, maintainable and secure systems.</p>
       </div>
-      <div class="about-meta reveal">
-        <div class="avatar-placeholder">
+      <div class="about-meta">
+        <div class="avatar">
           <div class="avatar-circle">
-            <img
-              src="https://avatars.githubusercontent.com/u/302485723?s=400&u=b053e84ae02b2d4566c840cca16e7518530a46fd&v=4"
-              alt="Ahmad Sultan"
-              class="avatar-img">
+            <img src="https://avatars.githubusercontent.com/u/302485723?s=400&amp;u=b053e84ae02b2d4566c840cca16e7518530a46fd&amp;v=4" alt="Ahmad Sultan" class="avatar-img">
           </div>
         </div>
+        <div class="row"><span>role</span><span>Senior Odoo Developer</span></div>
+        <div class="row"><span>company</span><span>Apollo Group</span></div>
         <div class="row"><span>location</span><span>Damascus, Syria</span></div>
-        <div class="row"><span>relocation</span><span>Open, EU priority</span></div>
-        <div class="row"><span>experience</span><span>3+ years, documented</span></div>
+        <div class="row"><span>relocation</span><span>Open, EU</span></div>
         <div class="row"><span>focus</span><span>Odoo · Python · REST APIs</span></div>
-        <div class="row"><span>languages</span><span>Arabic, English, German</span></div>
-        <div class="row"><span>email</span><span>eng.ahmd.sltn@gmail.com</span></div>
+        <div class="row"><span>languages</span><span>Arabic · English · German</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience">
+  <div class="wrap">
+    <p class="eyebrow">CHANGELOG.md</p>
+    <h2 class="section-title">Experience</h2>
+    <div class="changelog">
+
+      <article class="release">
+        <div class="release-head">
+          <div>
+            <h3 class="release-title">Senior Odoo Developer</h3>
+            <p class="release-company">Apollo Group (Solution) · Damascus, Syria</p>
+          </div>
+          <span class="release-version"><span class="brackets">[</span>2026.02 — present<span class="brackets">]</span></span>
+        </div>
+        <div class="change-group">
+          <span class="change-label security">security</span>
+          <ul class="change-list">
+            <li>Audited a production fintech e-wallet built by a third-party vendor: code structure, Odoo modular design, a JSON-RPC API layer in place of REST, and hardcoded loyalty and KYC logic. Delivered a formal audit report with a remediation plan, then led the architectural remediation.</li>
+          </ul>
+        </div>
+        <div class="change-group">
+          <span class="change-label added">added</span>
+          <ul class="change-list">
+            <li>REST API framework on Odoo's HTTP layer: an API registry with endpoint documentation, decorator-based grouping, and transaction-safe controllers that roll back fully on any validation failure.</li>
+            <li>An OTP management engine, a JWT authentication module, and phone-number login built on both.</li>
+            <li>A template-driven KYC verification engine with configurable workflows and approval steps.</li>
+            <li>Swagger documentation gated by user groups, so each integrator sees only the endpoints they're authorized to use.</li>
+          </ul>
+        </div>
+        <div class="change-group">
+          <span class="change-label changed">changed</span>
+          <ul class="change-list">
+            <li>Refactored the remaining legacy codebase and documented it line by line.</li>
+            <li>Took ownership of Accounting configuration (journals, chart of accounts, bank accounts, payment providers) and worked across Loyalty, Inventory, Sales and eCommerce.</li>
+            <li>Upgraded the platform in place from Odoo 18 to 19.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="release">
+        <div class="release-head">
+          <div>
+            <h3 class="release-title">EBTECH Technologies</h3>
+            <p class="release-company">Dubai, UAE · Remote</p>
+          </div>
+          <span class="release-version"><span class="brackets">[</span>2023.05 — 2026.01<span class="brackets">]</span></span>
+        </div>
+        <ul class="positions">
+          <li><span class="p-title">Odoo &amp; Flutter Developer <span class="p-type">· full-time</span></span><span class="p-dates">2025.04 — 2026.01</span></li>
+          <li><span class="p-title">Odoo &amp; Flutter Developer <span class="p-type">· part-time</span></span><span class="p-dates">2023.05 — 2025.03</span></li>
+        </ul>
+        <div class="change-group">
+          <span class="change-label added">added</span>
+          <ul class="change-list">
+            <li>Client projects on Odoo 15–18 across Accounting, POS, Sales, Inventory, CRM, Survey, Website and eCommerce, including a multi-tenant SaaS platform, a government e-invoicing integration and a multi-location pharmacy POS.</li>
+            <li>REST APIs connecting Odoo to Android POS terminals, Flutter apps, payment gateways and third-party vendor systems.</li>
+            <li>Flutter applications for Android and iOS, including a production e-wallet app and an RFID-integrated POS.</li>
+          </ul>
+        </div>
+        <div class="change-group">
+          <span class="change-label changed">changed</span>
+          <ul class="change-list">
+            <li>Designed tenant-level access control so each company sees only its own orders, surveys and reports.</li>
+            <li>Upgraded client modules between Odoo versions alongside ongoing project work.</li>
+            <li>Worked directly with clients on requirements and issue triage, and mentored a trainee developer on the RFID POS project.</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section id="projects">
+  <div class="wrap">
+    <p class="eyebrow">projects/</p>
+    <h2 class="section-title">Selected work</h2>
+    <p class="section-intro">13 documented projects, all delivered as part of a team. Each entry states my role and lists only the parts I was responsible for.</p>
+
+    <div class="filter-row" id="filterRow" role="group" aria-label="Filter projects">
+      <button class="filter-chip active" data-filter="all" aria-pressed="true">all</button>
+      <button class="filter-chip" data-filter="erp" aria-pressed="false">erp &amp; saas</button>
+      <button class="filter-chip" data-filter="retail" aria-pressed="false">pos &amp; retail</button>
+      <button class="filter-chip" data-filter="compliance" aria-pressed="false">compliance</button>
+      <button class="filter-chip" data-filter="fintech" aria-pressed="false">fintech &amp; security</button>
+      <button class="filter-chip" data-filter="mobile" aria-pressed="false">mobile</button>
+    </div>
+
+    <div class="project-grid" id="projectGrid">
+
+      <!-- Apollo -->
+      <article class="project-card" data-cat="fintech erp">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><h3>Fintech E-Wallet: Security Audit &amp; Remediation</h3></div>
+          <span class="project-tag t-warn">security</span>
+        </div>
+        <p class="project-meta">Apollo Group · Odoo 18 → 19</p>
+        <p class="project-role">Role: ran the audit independently, then led the architectural remediation</p>
+        <p class="project-desc">Audited a live fintech wallet that handles real customer transactions and documented serious structural and security problems. I then led the rebuild of its core, owning the API and authentication architecture.</p>
+        <div class="project-diagram">
+          <svg viewBox="0 0 350 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Audit leads to REST API framework and JWT/OTP auth, then KYC engine and permission-gated Swagger docs">
+            <defs><marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path class="dg-head" d="M0,0 L6,3 L0,6 Z"/></marker></defs>
+            <rect class="dg-box w" x="8" y="10" width="90" height="38" rx="5"/>
+            <text class="dg-t w" x="53" y="26">SECURITY</text><text class="dg-t w" x="53" y="38">AUDIT</text>
+            <line class="dg-line" x1="98" y1="29" x2="112" y2="29" marker-end="url(#a1)"/>
+            <rect class="dg-box i" x="112" y="10" width="110" height="38" rx="5"/>
+            <text class="dg-t i" x="167" y="26">REST API</text><text class="dg-t i" x="167" y="38">FRAMEWORK</text>
+            <line class="dg-line" x1="222" y1="29" x2="236" y2="29" marker-end="url(#a1)"/>
+            <rect class="dg-box o" x="236" y="10" width="100" height="38" rx="5"/>
+            <text class="dg-t o" x="286" y="26">JWT / OTP</text><text class="dg-t o" x="286" y="38">AUTH</text>
+            <line class="dg-line" x1="167" y1="48" x2="167" y2="70" marker-end="url(#a1)"/>
+            <rect class="dg-box i" x="97" y="70" width="140" height="38" rx="5"/>
+            <text class="dg-t i" x="167" y="86">KYC ENGINE</text><text class="dg-t i" x="167" y="98">(configurable)</text>
+            <line class="dg-line" x1="167" y1="108" x2="167" y2="131" marker-end="url(#a1)"/>
+            <rect class="dg-box o" x="92" y="132" width="150" height="36" rx="5"/>
+            <text class="dg-t o" x="167" y="147">SWAGGER DOCS</text><text class="dg-t o" x="167" y="159">(permission-gated)</text>
+          </svg>
+        </div>
+        <p class="project-tech-label">how it worked</p>
+        <ul class="diagram-caption">
+          <li>Audit findings drove a rebuilt REST framework: registry, decorators, transaction-safe controllers</li>
+          <li>JWT + OTP authentication and a configurable KYC engine replaced hardcoded logic</li>
+          <li>Permission-gated Swagger docs let integrators work without hand-holding</li>
+        </ul>
+        <p class="project-skills">security audit · REST architecture · JWT/OTP · KYC · Swagger · Odoo 19 upgrade</p>
+      </article>
+
+      <!-- Krooz -->
+      <article class="project-card" data-cat="erp">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg></span><h3>Krooz.ai: Multi-Tenant Talent Assessment SaaS</h3></div>
+          <span class="project-tag t-info">saas</span>
+        </div>
+        <p class="project-meta">EBTECH Technologies · GCC region · Odoo 17</p>
+        <p class="project-role">Role: backend developer on the Krooz.ai delivery team</p>
+        <p class="project-desc">A recruitment and assessment SaaS product for organizations across the GCC. I built the automation that turns a won sales deal into a working company account (business record, admin login, website and subdomain) with no manual setup.</p>
+        <div class="project-diagram">
+          <svg viewBox="0 0 430 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Won CRM deal triggers a provisioning pipeline that creates company and admin, website, and a Cloudflare subdomain">
+            <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path class="dg-head" d="M0,0 L6,3 L0,6 Z"/></marker></defs>
+            <rect class="dg-box i" x="8" y="46" width="90" height="38" rx="5"/>
+            <text class="dg-t i" x="53" y="62">CRM DEAL</text><text class="dg-t i" x="53" y="74">WON</text>
+            <line class="dg-line" x1="98" y1="65" x2="112" y2="65" marker-end="url(#a2)"/>
+            <rect class="dg-box o" x="112" y="46" width="130" height="38" rx="5"/>
+            <text class="dg-t o" x="177" y="62">PROVISIONING</text><text class="dg-t o" x="177" y="74">PIPELINE</text>
+            <rect class="dg-box d" x="266" y="8" width="156" height="28" rx="5"/>
+            <text class="dg-t d" x="344" y="26">COMPANY + ADMIN</text>
+            <rect class="dg-box d" x="266" y="50" width="156" height="28" rx="5"/>
+            <text class="dg-t d" x="344" y="68">WEBSITE</text>
+            <rect class="dg-box d" x="266" y="92" width="156" height="38" rx="5"/>
+            <text class="dg-t d" x="344" y="108">SUBDOMAIN</text><text class="dg-t d" x="344" y="120">(Cloudflare)</text>
+            <line class="dg-line thin" x1="242" y1="58" x2="266" y2="22" marker-end="url(#a2)"/>
+            <line class="dg-line thin" x1="242" y1="65" x2="266" y2="64" marker-end="url(#a2)"/>
+            <line class="dg-line thin" x1="242" y1="72" x2="266" y2="105" marker-end="url(#a2)"/>
+          </svg>
+        </div>
+        <p class="project-tech-label">how it worked</p>
+        <ul class="diagram-caption">
+          <li>A won CRM opportunity creates the company and its internal admin user</li>
+          <li>Website and subdomain are provisioned automatically through the Cloudflare API</li>
+          <li>Access rules keep each tenant's orders, surveys and reports isolated</li>
+        </ul>
+        <p class="project-skills">multi-tenant architecture · CRM automation · Cloudflare API · Odoo 15 → 17 module upgrades</p>
+      </article>
+
+      <!-- Tax authority -->
+      <article class="project-card" data-cat="compliance erp">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><h3>Tax Authority E-Invoicing Integration</h3></div>
+          <span class="project-tag t-ok">compliance</span>
+        </div>
+        <p class="project-meta">EBTECH Technologies · Government regulatory · Odoo 17, 18</p>
+        <p class="project-role">Role: backend developer on the integration team</p>
+        <p class="project-desc">I built the connection between Odoo Accounting and the Syrian tax authority's e-invoicing API, so every invoice is reported at the moment of sale and carries a QR code customers can verify.</p>
+        <div class="project-diagram">
+          <svg viewBox="0 0 420 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Odoo sale invoice sent to the tax authority API in real time, which returns a QR code printed on the invoice">
+            <defs><marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path class="dg-head" d="M0,0 L6,3 L0,6 Z"/></marker></defs>
+            <rect class="dg-box o" x="8" y="32" width="100" height="36" rx="5"/>
+            <text class="dg-t o" x="58" y="48">ODOO SALE</text><text class="dg-t o" x="58" y="60">INVOICE</text>
+            <line class="dg-line" x1="108" y1="50" x2="132" y2="50" marker-end="url(#a3)"/>
+            <rect class="dg-box i" x="132" y="32" width="140" height="36" rx="5"/>
+            <text class="dg-t i" x="202" y="48">TAX AUTHORITY</text><text class="dg-t i" x="202" y="60">API (real-time)</text>
+            <line class="dg-line" x1="272" y1="50" x2="296" y2="50" marker-end="url(#a3)"/>
+            <rect class="dg-box o" x="296" y="32" width="110" height="36" rx="5"/>
+            <text class="dg-t o" x="351" y="48">QR CODE</text><text class="dg-t o" x="351" y="60">ON INVOICE</text>
+          </svg>
+        </div>
+        <p class="project-tech-label">how it worked</p>
+        <ul class="diagram-caption">
+          <li>Invoice data is transmitted to the authority's API when the sale is invoiced</li>
+          <li>The authority's response generates a compliance QR code printed on the invoice</li>
+          <li>Customers verify any invoice independently in the authority's official app</li>
+        </ul>
+        <p class="project-skills">government API integration · real-time reporting · QR compliance · transferable to EU e-invoicing (Peppol, XRechnung/ZUGFeRD, KSeF)</p>
+      </article>
+
+      <!-- Pharmacy POS -->
+      <article class="project-card" data-cat="retail">
+        <div class="project-top">
+          <div class="project-heading"><span class="project-avatar cat-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span><h3>Pharmaceutical Retail: Multi-Location POS</h3></div>
+          <span class="project-tag t-info">retail</span>
+        </div>
+        <p class="project-meta">EBTECH Technologies · Odoo 18</p>
+        <p class="project-role">Role: backend developer on the POS delivery team</p>
+        <p class="project-desc">A POS platform for a medicine retailer with several points of sale. Static serial numbers couldn't capture what a pharmacy needs, so I reworked serialization around dates for expiry and batch tracking, and extended POS orders and landed costs to match.</p>
+        <div class="project-diagram">
+          <svg viewBox="0 0 420 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="POS sale feeds datetime-based serialization for expiry and batch tracking; import shipments feed landed cost allocation for accurate product cost">
+            <defs><marker id="a4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path class="dg-head" d="M0,0 L6,3 L0,6 Z"/></marker></defs>
+            <rect class="dg-box i" x="8" y="12" width="110" height="38" rx="5"/>
+            <text class="dg-t i" x="63" y="28">POS SALE</text><text class="dg-t i" x="63" y="40">+ pharmacy fields</text>
+            <line class="dg-line" x1="118" y1="31" x2="136" y2="31" marker-end="url(#a4)"/>
+            <rect class="dg-box o" x="136" y="12" width="140" height="38" rx="5"/>
+            <text class="dg-t o" x="206" y="28">DATETIME-BASED</text><text class="dg-t o" x="206" y="40">SERIALIZATION</text>
+            <line class="dg-line" x1="276" y1="31" x2="294" y2="31" marker-end="url(#a4)"/>
+            <rect class="dg-box d" x="294" y="12" width="118" height="38" rx="5"/>
+            <text class="dg-t d" x="353" y="28">EXPIRY / BATCH</text><text class="dg-t d" x="353" y="40">TRACKING</text>
+            <rect class="dg-box i" x="8" y="86" width="110" height="38" rx="5"/>
+            <text class="dg-t i" x="63" y="102">IMPORT</text><text class="dg-t i" x="63" y="114">SHIPMENT</text>
+            <line class="dg-line" x1="118" y1="105" x2="136" y2="105" marker-end="url(#a4)"/>
+            <rect class="dg-box o" x="136" y="86" width="140" height="38" rx="5"/>
+            <text class="dg-t o" x="206" y="102">LANDED COST</text><text class="dg-t o" x="206" y="114">ALLOCATION</text>
+            <line class="dg-line" x1="276" y1="105" x2="294" y2="105" marker-end="url(#a4)"/>
+            <rect class="dg-box d" x="294" y="86" width="118" height="38" rx="5"/>
+            <text class="dg-t d" x="353" y="102">ACCURATE</text><text class="dg-t d" x="353" y="114">PRODUCT COST</text>
+          </svg>
+        </div>
+        <p class="project-tech-label">how it worked</p>
+        <ul class="diagram-caption">
+          <li>Static serial IDs replaced with DATETIME-based serialization for expiry and batch tracking</li>
+          <li>POS product cards and sale orders extended with pharmacy-specific data</li>
+          <li>Landed Cost module customized to allocate import and logistics costs</li>
+        </ul>
+        <p class="project-skills">regulated inventory · custom serialization · POS customization · landed cost</p>
+      </article>
+
+    </div>
+
+    <p class="compact-list-label">// more work: 9 additional projects and version migrations</p>
+    <div class="compact-list" id="compactList">
+
+      <div class="compact-row" data-cat="compliance fintech" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag t-warn">compliance</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">Audit Log Extension</p>
+          <p class="compact-row-sub">IP capture and download auditing on top of the OCA audit_log module</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">EBTECH Technologies · OCA module extension · Odoo 16–19</p>
+        <p class="project-role">Role: backend developer</p>
+        <ul>
+          <li>Extended auditable actions to PDF report printing and Document-module file downloads</li>
+          <li>Added IP address capture to every log entry for forensic traceability</li>
+          <li>Added Pivot and Kanban views so auditors can review logs at scale</li>
+        </ul>
+        <p class="project-skills">forensic logging · audit trails · custom views</p>
+      </div>
+
+      <div class="compact-row" data-cat="retail" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag t-info">retail</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">Granada Market: Retail E-Commerce</p>
+          <p class="compact-row-sub">Payment gateways, inventory serialization and POS customization for a Sharjah retailer</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">EBTECH Technologies · Sharjah, UAE · Odoo 18</p>
+        <p class="project-role">Role: backend developer on the e-commerce delivery team</p>
+        <ul>
+          <li>Integrated payment gateways into Odoo's native payment provider framework</li>
+          <li>Customized serial-number tracking in the Inventory module</li>
+          <li>Reworked the POS product card, invoicing flow and sale-order behavior</li>
+        </ul>
+        <p class="project-skills">payment gateways · inventory serialization · POS customization</p>
+      </div>
+
+      <div class="compact-row" data-cat="erp retail" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag t-info">erp</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">Codati: Gift Card E-Commerce Platform</p>
+          <p class="compact-row-sub">Vendor sourcing automation, reconciliation and POS terminal APIs</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">Internship project · Odoo 15</p>
+        <p class="project-role">Role: backend developer</p>
+        <ul>
+          <li>Integrated regional gift-card suppliers with Odoo's sourcing module, replenishing stock automatically on sellout</li>
+          <li>Automated vendor price comparison to pick the best-priced supplier at purchase time</li>
+          <li>Built REST APIs for an Android POS terminal, reconciliation logic for journal entries, and a scheduled action that batches invoicing off-peak</li>
+          <li>Worked directly with the client through requirements calls and issue triage</li>
+        </ul>
+        <p class="project-skills">vendor API integration · accounting reconciliation · scheduled actions</p>
+      </div>
+
+      <div class="compact-row" data-cat="erp" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag t-info">automation</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">Car Rental Fleet Data Automation</p>
+          <p class="compact-row-sub">Trip, toll and violation data into Odoo from services without a public API</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">EBTECH Technologies · Fleet · Odoo 17</p>
+        <p class="project-role">Role: backend developer</p>
+        <ul>
+          <li>Built a data-collection layer for third-party services lacking public API access, combining direct endpoint calls with Selenium and BeautifulSoup for rendered pages</li>
+          <li>Managed authenticated sessions to pull vehicles, trips and violations per account</li>
+          <li>Normalized the data into internal tables that drive automatic per-contract client invoicing</li>
+        </ul>
+        <p class="project-skills">data pipelines · browser automation · session management · automated invoicing</p>
+      </div>
+
+      <div class="compact-row" data-cat="erp" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag t-info">migration</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">Odoo Version Migrations</p>
+          <p class="compact-row-sub">Custom module upgrades carried out alongside client work, Odoo 14 through 19</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">EBTECH Technologies and Apollo Group</p>
+        <p class="project-role">Role: backend developer</p>
+        <ul>
+          <li>Upgrade paths covered: 14 → 17, 15 → 16, 16 → 17 and 18 → 19</li>
+          <li>Included selected Krooz.ai modules (15 → 17) and the in-place 18 → 19 upgrade of a production fintech platform</li>
+        </ul>
+        <p class="project-skills">version migration · module refactoring</p>
+      </div>
+
+      <div class="compact-row" data-cat="mobile fintech" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag t-ok">mobile</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">E-Wallet Mobile Application</p>
+          <p class="compact-row-sub">Flutter app built from scratch with a decoupled module-registry architecture</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">Flutter · Android &amp; iOS · Odoo backend</p>
+        <p class="project-role">Role: Flutter developer</p>
+        <ul>
+          <li>Designed a module registry that decouples app features and removes cross-module dependencies</li>
+          <li>Provider for state, SharedPreferences for local persistence, Firebase for push notifications</li>
+          <li>Custom packages for search and PIN/OTP verification; shipped to Android and iOS, including iOS release fixes</li>
+        </ul>
+        <p class="project-skills">Flutter architecture · custom packages · secure auth UX</p>
+      </div>
+
+      <div class="compact-row" data-cat="mobile retail" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag t-ok">mobile</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">RFID POS Solution</p>
+          <p class="compact-row-sub">Hardware SDK integration, Odoo inventory APIs and mentoring a trainee developer</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">EBTECH Technologies · Hardware-integrated POS</p>
+        <p class="project-role">Role: Odoo backend developer and Flutter mentor</p>
+        <ul>
+          <li>Integrated the RFID device through the manufacturer's SDK, working with their support team on integration gaps</li>
+          <li>Wrapped the SDK in a reusable interface package and mentored the trainee building the UI on top of it</li>
+          <li>Built Odoo APIs that register scanned products, reconcile stock counts and generate delivery orders</li>
+        </ul>
+        <p class="project-skills">hardware SDK integration · stock reconciliation · technical mentorship</p>
+      </div>
+
+      <div class="compact-row" data-cat="mobile retail" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag t-ok">mobile</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">Offline-First Salesman App</p>
+          <p class="compact-row-sub">Field-sales app that works offline and syncs to Odoo</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">EBTECH Technologies · Flutter · SQLite · Odoo sync</p>
+        <p class="project-role">Role: maintenance and feature developer</p>
+        <ul>
+          <li>Maintained and fixed the local Inventory module that tracks stock loaded onto each salesman's truck</li>
+          <li>Integrated a portable Bluetooth receipt printer for invoicing at the point of sale</li>
+        </ul>
+        <p class="project-skills">offline-first architecture · SQLite · Bluetooth hardware</p>
+      </div>
+
+      <div class="compact-row" data-cat="erp" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag">academic</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">Healthcare Center Management System</p>
+          <p class="compact-row-sub">Graduation project: Odoo, Flutter and Ethereum, 93% (highest in class)</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">Damascus University · Odoo 17 · team of two</p>
+        <p class="project-role">Role: owned the Odoo backend; blockchain integration shared with teammate</p>
+        <ul>
+          <li>Custom Appointments module validated against doctor shift schedules configured in HR</li>
+          <li>Per-doctor access control limiting each doctor to their own appointments and patients</li>
+          <li>Ethereum-backed medical record storage via transient models, plus the API layer for the Flutter client</li>
+        </ul>
+        <p class="project-skills">custom modules · access control · Ethereum integration · API design</p>
+      </div>
+
+      <div class="compact-row" data-cat="mobile" role="button" tabindex="0" aria-expanded="false">
+        <span class="project-tag">freelance</span>
+        <div class="compact-row-main">
+          <p class="compact-row-title">Bus &amp; Transportation Rental Tracker</p>
+          <p class="compact-row-sub">Solo freelance build before specializing in Odoo</p>
+        </div>
+        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="compact-row-detail">
+        <p class="project-meta">Freelance · Firebase / Firestore</p>
+        <p class="project-role">Role: independent developer</p>
+        <ul>
+          <li>Built a mobile app and a desktop dashboard to track rentals and transport activity</li>
+          <li>Stored driver records and tracked fines and billing per rental</li>
+        </ul>
+        <p class="project-skills">Firebase/Firestore · cross-platform delivery</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -986,447 +1143,30 @@
     <p class="eyebrow">skills.yaml</p>
     <h2 class="section-title">What I work with</h2>
     <div class="skills-grid">
-      <div class="skill-card reveal">
-        <p class="filename"><span>odoo_and_erp</span></p>
-        <p>Module development, ORM, QWeb, OWL.js, server &amp; scheduled actions, multi-company/multi-tenant architecture, Accounting, POS, Sales, Inventory, CRM, HR, Survey, eCommerce — Odoo 14 through 19.</p>
+      <div class="skill-card">
+        <p class="filename">odoo_and_erp</p>
+        <p>Module development, ORM, QWeb, OWL, server and scheduled actions, multi-company and multi-tenant setups. Accounting, POS, Inventory, Sales, eCommerce, CRM, HR, Survey, Fleet, Landed Cost, Loyalty. Version migrations, Odoo 14 through 19.</p>
       </div>
-      <div class="skill-card reveal">
-        <p class="filename"><span>backend_and_apis</span></p>
-        <p>Python, REST API architecture, JWT/OTP authentication, Flask, FastAPI, Django, PostgreSQL, MongoDB, SQL, Swagger/OpenAPI documentation.</p>
+      <div class="skill-card">
+        <p class="filename">backend_and_apis</p>
+        <p>Python, PostgreSQL, SQL. REST API architecture on Odoo's HTTP layer, transaction-safe controllers, Swagger/OpenAPI documentation, payment gateway and third-party vendor integrations.</p>
       </div>
-      <div class="skill-card reveal">
-        <p class="filename"><span>frontend_and_mobile</span></p>
-        <p>JavaScript, OWL.js, HTML/CSS, React.js, Flutter (Provider, Firebase, custom packages, biometric authentication).</p>
+      <div class="skill-card">
+        <p class="filename">security_and_compliance</p>
+        <p>Security and code-quality auditing, JWT/OTP authentication design, role-based and multi-tenant access control, audit trails and forensic logging, government e-invoicing integration.</p>
       </div>
-      <div class="skill-card reveal">
-        <p class="filename"><span>security_and_compliance</span></p>
-        <p>Secure authentication design (JWT/OTP/KYC), role-based &amp; multi-tenant access control, government e-invoicing/tax-API compliance, audit-trail &amp; forensic logging, PortSwigger Web Security Academy labs in API &amp; backend security.</p>
+      <div class="skill-card">
+        <p class="filename">mobile</p>
+        <p>Flutter for Android and iOS: Provider, Firebase, SQLite, offline-first sync, custom packages, RFID SDK and Bluetooth printer integration.</p>
       </div>
-      <div class="skill-card reveal">
-        <p class="filename"><span>devops_and_tools</span></p>
-        <p>Git, GitHub, GitLab, Docker, Postman (collections, environments, automated request testing), CI-friendly workflows.</p>
+      <div class="skill-card">
+        <p class="filename">tools_and_systems</p>
+        <p>Git, GitHub, GitLab, Docker, Postman, Linux (Ubuntu/Debian), Bash, systemd, cron, SSH. Selenium and BeautifulSoup for automation.</p>
       </div>
-      <div class="skill-card reveal">
-        <p class="filename"><span>linux_and_systems</span></p>
-        <p>Ubuntu/Debian server administration, Bash scripting, systemd services, cron scheduling, file permissions &amp; user management, SSH, process &amp; log inspection.</p>
+      <div class="skill-card">
+        <p class="filename">collaboration</p>
+        <p>Client requirements gathering, API contracts with frontend and mobile developers, mentoring trainee developers, vendor technical liaison, audit reports and code documentation.</p>
       </div>
-      <div class="skill-card reveal">
-        <p class="filename"><span>teamwork_and_leadership</span></p>
-        <p>Client-facing requirements gathering, technical mentorship of junior/trainee developers, cross-team API contract design, vendor &amp; hardware-manufacturer technical liaison, formal technical writing (audit reports, code documentation), code review.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== EXPERIENCE / CHANGELOG ===================== -->
-<section id="experience">
-  <div class="wrap">
-    <p class="eyebrow">CHANGELOG.md</p>
-    <h2 class="section-title">Experience, as a version history</h2>
-    <div class="changelog">
-
-      <div class="release reveal">
-        <div class="release-head">
-          <span class="release-version"><span class="brackets">[</span>2026.02 — present<span class="brackets">]</span></span>
-          <span class="release-meta">Senior Full-Stack Odoo Developer · Apollo Group (Solution) · Damascus, Syria</span>
-        </div>
-        <div class="change-group">
-          <span class="change-label security">security</span>
-          <ul class="change-list">
-            <li>Ran an independent security and code-quality audit of a production fintech e-wallet platform, flagging critical API and architecture risks, then presented the findings and led the engineering team through the remediation.</li>
-          </ul>
-        </div>
-        <div class="change-group">
-          <span class="change-label added">added</span>
-          <ul class="change-list">
-            <li>Full REST API framework on Odoo's HTTP layer: an API registry, decorator-based endpoint grouping, and transaction-safe controllers with full rollback on validation failure.</li>
-            <li>JWT-based authentication and a reusable OTP framework for phone-number login.</li>
-            <li>A template-driven KYC verification engine with configurable workflows and approval steps.</li>
-            <li>Live, permission-gated API documentation via Swagger, so integrators and other teams could self-serve without pinging me for every endpoint.</li>
-          </ul>
-        </div>
-        <div class="change-group">
-          <span class="change-label changed">changed</span>
-          <ul class="change-list">
-            <li>Extended ownership into Accounting (journal entries, chart of accounts, payment providers) and upgraded the platform from Odoo 18 to 19.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="release reveal">
-        <div class="release-head">
-          <span class="release-version"><span class="brackets">[</span>2023.05 – 2026.01<span class="brackets">]</span></span>
-          <span class="release-meta">Senior Full-Stack Odoo &amp; Flutter Developer · EBTECH Technologies · Dubai, UAE (Remote)</span>
-        </div>
-        <div class="change-group">
-          <span class="change-label added">added</span>
-          <ul class="change-list">
-            <li>12+ ERP and mobile application projects across Accounting, POS, Sales, Inventory, Website, Portal, and Survey modules.</li>
-            <li>Scalable backend workflows and automation in Python/Odoo ORM serving 500+ users.</li>
-            <li>REST APIs integrating payment gateways, SMS providers, and external business systems.</li>
-            <li>Flutter mobile applications connected to Odoo backends via REST APIs.</li>
-          </ul>
-        </div>
-        <div class="change-group">
-          <span class="change-label changed">changed</span>
-          <ul class="change-list">
-            <li>Rolled out multi-company ERP setups with custom websites, user management, and role-based access control.</li>
-            <li>Reviewed teammates' code, mentored junior developers day-to-day, and led technical design discussions across the SDLC.</li>
-            <li>Worked directly with clients during requirements gathering and issue triage, translating business needs into technical specs the team could build from.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="release reveal">
-        <div class="release-head">
-          <span class="release-version"><span class="brackets">[</span>2024.05 – 2024.09<span class="brackets">]</span></span>
-          <span class="release-meta">Odoo &amp; Flutter Developer (Academic Project) · Damascus University</span>
-        </div>
-        <div class="change-group">
-          <span class="change-label added">added</span>
-          <ul class="change-list">
-            <li>Partnered with one teammate on a Healthcare Management System combining Odoo, Flutter, and Ethereum blockchain for secure medical record verification — independently owned the Odoo backend and API layer while co-developing the blockchain integration; teammate led the Flutter client.</li>
-            <li>Result: 93% — highest grade in class.</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===================== PROJECTS ===================== -->
-<section id="projects">
-  <div class="wrap">
-    <p class="eyebrow">projects/</p>
-    <h2 class="section-title">Selected work — 13 documented projects</h2>
-    <p style="color:var(--text-muted); font-size:15px; max-width:62ch; margin:-18px 0 30px;">All delivered as part of a team, not solo. Each card below states my specific role and lists only the pieces I was personally responsible for.</p>
-
-    <div class="filter-row" id="filterRow">
-      <button class="filter-chip active" data-filter="all">all</button>
-      <button class="filter-chip" data-filter="fintech">fintech &amp; security</button>
-      <button class="filter-chip" data-filter="saas">saas &amp; erp</button>
-      <button class="filter-chip" data-filter="retail">pos &amp; retail</button>
-      <button class="filter-chip" data-filter="compliance">compliance</button>
-      <button class="filter-chip" data-filter="mobile">mobile</button>
-    </div>
-
-    <div class="project-grid" id="projectGrid">
-
-      <article class="project-card reveal" data-cat="fintech">
-        <div class="project-top">
-          <div class="project-heading"><span class="project-avatar cat-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><h3>Fintech E-Wallet — Security Audit &amp; Remediation</h3></div>
-          <span class="project-tag" style="color:var(--warn);border:1px solid var(--warn-dim)">Security</span>
-        </div>
-        <p class="project-meta">Apollo Group · Odoo 18 → 19</p>
-        <p class="project-role">Role: ran the audit independently, then led the engineering team through remediation</p>
-        <p class="project-desc">Audited a live fintech wallet used for real customer transactions and found serious structural and security risks. I then led the team that rebuilt the core systems, personally owning the API and auth architecture.</p>
-        <div class="project-diagram">
-          <svg viewBox="0 0 350 180" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace">
-            <rect x="8" y="10" width="90" height="38" rx="5" fill="none" stroke="var(--warn)" stroke-width="1.5"/>
-            <text x="53" y="26" fill="var(--warn)" font-size="8.5" text-anchor="middle">SECURITY</text>
-            <text x="53" y="38" fill="var(--warn)" font-size="8.5" text-anchor="middle">AUDIT</text>
-            <line x1="98" y1="29" x2="112" y2="29" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow1)"/>
-            <rect x="112" y="10" width="110" height="38" rx="5" fill="none" stroke="var(--info)" stroke-width="1.5"/>
-            <text x="167" y="26" fill="var(--info)" font-size="8.5" text-anchor="middle">REST API</text>
-            <text x="167" y="38" fill="var(--info)" font-size="8.5" text-anchor="middle">FRAMEWORK</text>
-            <line x1="222" y1="29" x2="236" y2="29" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow1)"/>
-            <rect x="236" y="10" width="100" height="38" rx="5" fill="none" stroke="var(--ok)" stroke-width="1.5"/>
-            <text x="286" y="26" fill="var(--ok)" font-size="8.5" text-anchor="middle">JWT / OTP</text>
-            <text x="286" y="38" fill="var(--ok)" font-size="8.5" text-anchor="middle">AUTH</text>
-            <line x1="167" y1="48" x2="167" y2="70" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow1)"/>
-            <rect x="97" y="70" width="140" height="38" rx="5" fill="none" stroke="var(--info)" stroke-width="1.5"/>
-            <text x="167" y="86" fill="var(--info)" font-size="8.5" text-anchor="middle">KYC ENGINE</text>
-            <text x="167" y="98" fill="var(--info)" font-size="8.5" text-anchor="middle">(configurable)</text>
-            <line x1="167" y1="108" x2="167" y2="131" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow1)"/>
-            <rect x="95" y="132" width="150" height="36" rx="5" fill="none" stroke="var(--ok)" stroke-width="1.5"/>
-            <text x="170" y="147" fill="var(--ok)" font-size="8.5" text-anchor="middle">SWAGGER DOCS</text>
-            <text x="170" y="159" fill="var(--ok)" font-size="8.5" text-anchor="middle">(permission-gated)</text>
-            <defs><marker id="arrow1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--text-dim)"/></marker></defs>
-          </svg>
-        </div>
-        <p class="project-tech-label">how it worked</p>
-        <ul class="diagram-caption">
-          <li>Audit findings drove a rebuilt REST framework (registry, decorators, transaction-safe controllers)</li>
-          <li>JWT + OTP auth and a configurable KYC engine replaced hardcoded logic</li>
-          <li>Permission-gated Swagger docs let integrators self-serve</li>
-        </ul>
-        <p class="project-skills">audit · REST architecture · JWT/OTP · KYC · Swagger</p>
-      </article>
-
-      <article class="project-card reveal" data-cat="saas">
-        <div class="project-top">
-          <div class="project-heading"><span class="project-avatar cat-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg></span><h3>Krooz.ai — Multi-Tenant Talent Assessment SaaS</h3></div>
-          <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">SaaS</span>
-        </div>
-        <p class="project-meta">GCC region · Odoo 17</p>
-        <p class="project-role">Role: backend developer on the Krooz.ai delivery team at EBTECH</p>
-        <p class="project-desc">Part of the team that shipped Krooz.ai. My piece was the automation that turns a signed sales deal into a fully working company account — a new business, an admin login, a website, and a web address, ready in minutes with no manual setup.</p>
-        <div class="project-diagram">
-          <svg viewBox="0 0 430 140" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace">
-            <rect x="8" y="46" width="90" height="38" rx="5" fill="none" stroke="var(--info)" stroke-width="1.5"/>
-            <text x="53" y="62" fill="var(--info)" font-size="8.5" text-anchor="middle">CRM DEAL</text>
-            <text x="53" y="74" fill="var(--info)" font-size="8.5" text-anchor="middle">WON</text>
-            <line x1="98" y1="65" x2="112" y2="65" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow2)"/>
-            <rect x="112" y="46" width="130" height="38" rx="5" fill="none" stroke="var(--ok)" stroke-width="1.5"/>
-            <text x="177" y="62" fill="var(--ok)" font-size="8.5" text-anchor="middle">PROVISIONING</text>
-            <text x="177" y="74" fill="var(--ok)" font-size="8.5" text-anchor="middle">PIPELINE</text>
-            <rect x="266" y="8" width="156" height="28" rx="5" fill="none" stroke="var(--text-dim)" stroke-width="1.3"/>
-            <text x="344" y="26" fill="var(--text-muted)" font-size="8.5" text-anchor="middle">COMPANY + ADMIN</text>
-            <rect x="266" y="50" width="156" height="28" rx="5" fill="none" stroke="var(--text-dim)" stroke-width="1.3"/>
-            <text x="344" y="68" fill="var(--text-muted)" font-size="8.5" text-anchor="middle">WEBSITE</text>
-            <rect x="266" y="92" width="156" height="38" rx="5" fill="none" stroke="var(--text-dim)" stroke-width="1.3"/>
-            <text x="344" y="108" fill="var(--text-muted)" font-size="8.5" text-anchor="middle">SUBDOMAIN</text>
-            <text x="344" y="120" fill="var(--text-muted)" font-size="8.5" text-anchor="middle">(Cloudflare)</text>
-            <line x1="242" y1="58" x2="266" y2="22" stroke="var(--text-dim)" stroke-width="1" marker-end="url(#arrow2)"/>
-            <line x1="242" y1="65" x2="266" y2="64" stroke="var(--text-dim)" stroke-width="1" marker-end="url(#arrow2)"/>
-            <line x1="242" y1="72" x2="266" y2="105" stroke="var(--text-dim)" stroke-width="1" marker-end="url(#arrow2)"/>
-            <defs><marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--text-dim)"/></marker></defs>
-          </svg>
-        </div>
-        <p class="project-tech-label">how it worked</p>
-        <ul class="diagram-caption">
-          <li>Won CRM opportunity auto-triggers company + admin-user creation</li>
-          <li>Website and subdomain provisioned automatically via the Cloudflare API</li>
-          <li>Each tenant's data (sales, surveys, reports) stays isolated by access control</li>
-        </ul>
-        <p class="project-skills">multi-tenant architecture · Cloudflare API · CRM automation</p>
-      </article>
-
-      <article class="project-card reveal" data-cat="compliance">
-        <div class="project-top">
-          <div class="project-heading"><span class="project-avatar cat-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><h3>Syrian Tax Authority — E-Invoicing Integration</h3></div>
-          <span class="project-tag" style="color:var(--ok);border:1px solid var(--ok-dim)">Compliance</span>
-        </div>
-        <p class="project-meta">Government regulatory · Odoo 17, 18</p>
-        <p class="project-role">Role: backend developer on the integration team at EBTECH</p>
-        <p class="project-desc">Part of the EBTECH team responsible for this integration. I built the connection between Odoo Accounting and the government tax authority, so every invoice is reported automatically and comes with a scannable QR code proving it's legitimate.</p>
-        <div class="project-diagram">
-          <svg viewBox="0 0 420 110" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace">
-            <rect x="8" y="32" width="100" height="36" rx="5" fill="none" stroke="var(--ok)" stroke-width="1.5"/>
-            <text x="58" y="48" fill="var(--ok)" font-size="8.5" text-anchor="middle">ODOO SALE</text>
-            <text x="58" y="60" fill="var(--ok)" font-size="8.5" text-anchor="middle">INVOICE</text>
-            <line x1="108" y1="50" x2="132" y2="50" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow3)"/>
-            <rect x="132" y="32" width="140" height="36" rx="5" fill="none" stroke="var(--info)" stroke-width="1.5"/>
-            <text x="202" y="48" fill="var(--info)" font-size="8.5" text-anchor="middle">TAX AUTHORITY</text>
-            <text x="202" y="60" fill="var(--info)" font-size="8.5" text-anchor="middle">API (real-time)</text>
-            <line x1="272" y1="50" x2="296" y2="50" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow3)"/>
-            <rect x="296" y="32" width="110" height="36" rx="5" fill="none" stroke="var(--ok)" stroke-width="1.5"/>
-            <text x="351" y="48" fill="var(--ok)" font-size="8.5" text-anchor="middle">QR CODE</text>
-            <text x="351" y="60" fill="var(--ok)" font-size="8.5" text-anchor="middle">ON INVOICE</text>
-            <defs><marker id="arrow3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--text-dim)"/></marker></defs>
-          </svg>
-        </div>
-        <p class="project-tech-label">how it worked</p>
-        <ul class="diagram-caption">
-          <li>Invoice data transmitted to the tax authority's API at the moment of sale</li>
-          <li>Authority's response generates a compliance QR code printed on the invoice</li>
-          <li>Customers verify any invoice independently via the authority's official app</li>
-        </ul>
-        <p class="project-skills">government API integration · real-time reporting · QR compliance · relevant to EU e-invoicing (XRechnung/ZUGFeRD, KSeF)</p>
-      </article>
-
-      <article class="project-card reveal" data-cat="fintech">
-        <div class="project-top">
-          <div class="project-heading"><span class="project-avatar cat-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></span><h3>Audit Log Extension — Compliance Tooling</h3></div>
-          <span class="project-tag" style="color:var(--warn);border:1px solid var(--warn-dim)">Compliance</span>
-        </div>
-        <p class="project-meta">EBTECH Technologies · Odoo 16–19</p>
-        <p class="project-role">Role: backend developer on the compliance/audit tooling team at EBTECH</p>
-        <p class="project-desc">Part of an EBTECH engagement extending the OCA community's audit_log module for internal use, giving companies a clearer paper trail of who did what and when — the kind of thing that matters for passing a security review.</p>
-        <div class="project-diagram">
-          <svg viewBox="0 0 420 110" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace">
-            <rect x="8" y="32" width="150" height="36" rx="5" fill="none" stroke="var(--warn)" stroke-width="1.5"/>
-            <text x="83" y="48" fill="var(--warn)" font-size="8.5" text-anchor="middle">USER ACTION</text>
-            <text x="83" y="60" fill="var(--warn)" font-size="8.5" text-anchor="middle">(print / download)</text>
-            <line x1="158" y1="50" x2="178" y2="50" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow4)"/>
-            <rect x="178" y="32" width="110" height="36" rx="5" fill="none" stroke="var(--info)" stroke-width="1.5"/>
-            <text x="233" y="48" fill="var(--info)" font-size="8.5" text-anchor="middle">AUDIT LOG</text>
-            <text x="233" y="60" fill="var(--info)" font-size="8.5" text-anchor="middle">+ IP capture</text>
-            <line x1="288" y1="50" x2="308" y2="50" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow4)"/>
-            <rect x="308" y="32" width="104" height="36" rx="5" fill="none" stroke="var(--ok)" stroke-width="1.5"/>
-            <text x="360" y="48" fill="var(--ok)" font-size="8.5" text-anchor="middle">PIVOT /</text>
-            <text x="360" y="60" fill="var(--ok)" font-size="8.5" text-anchor="middle">KANBAN VIEW</text>
-            <defs><marker id="arrow4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--text-dim)"/></marker></defs>
-          </svg>
-        </div>
-        <p class="project-tech-label">how it worked</p>
-        <ul class="diagram-caption">
-          <li>Extended auditable actions to cover PDF report and Document-module downloads</li>
-          <li>Added IP address capture to every log entry for forensic traceability</li>
-          <li>Added Pivot and Kanban views so audit logs are easier to review at scale</li>
-        </ul>
-        <p class="project-skills">forensic logging · audit trails · internal compliance tooling</p>
-      </article>
-
-    </div>
-
-    <p class="compact-list-label">// more work — 9 additional projects</p>
-    <div class="compact-list" id="compactList">
-
-      <div class="compact-row" data-cat="retail" role="button" tabindex="0" aria-expanded="false">
-        <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">Retail</span>
-        <div class="compact-row-main">
-          <p class="compact-row-title">Pharmaceutical Retail — Multi-Location POS</p>
-          <p class="compact-row-sub">Backend developer on the POS delivery team at EBTECH — DATETIME-based expiry/batch serialization</p>
-        </div>
-        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </div>
-      <div class="compact-row-detail">
-        <p class="project-meta">Multi-location POS · Odoo 18</p>
-        <ul>
-          <li>Converted static serial-number tracking to DATETIME-based serialization for expiry/batch tracking</li>
-          <li>Customized POS sale orders to capture pharmacy-specific data at checkout</li>
-          <li>Extended the Landed Cost module to allocate import and logistics costs accurately</li>
-        </ul>
-        <p class="project-skills">regulated inventory · custom serialization · landed cost</p>
-      </div>
-
-      <div class="compact-row" data-cat="retail" role="button" tabindex="0" aria-expanded="false">
-        <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">Retail</span>
-        <div class="compact-row-main">
-          <p class="compact-row-title">Granada Market — Retail E-Commerce</p>
-          <p class="compact-row-sub">Backend developer on the e-commerce delivery team at EBTECH — payments + inventory serialization</p>
-        </div>
-        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </div>
-      <div class="compact-row-detail">
-        <p class="project-meta">Sharjah, UAE · Odoo 18</p>
-        <ul>
-          <li>Integrated payment gateways into Odoo's native payment provider framework</li>
-          <li>Customized serial-number tracking in the Inventory module</li>
-          <li>Reworked the POS product card, invoicing flow, and sale-order behavior</li>
-        </ul>
-        <p class="project-skills">payment gateways · inventory serialization · POS customization</p>
-      </div>
-
-      <div class="compact-row" data-cat="saas" role="button" tabindex="0" aria-expanded="false">
-        <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">ERP</span>
-        <div class="compact-row-main">
-          <p class="compact-row-title">Codati — Gift Card E-Commerce Platform</p>
-          <p class="compact-row-sub">Backend developer on the Codati training-project team — vendor sourcing automation</p>
-        </div>
-        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </div>
-      <div class="compact-row-detail">
-        <p class="project-meta">Internship / training project · Odoo 15</p>
-        <ul>
-          <li>Integrated multiple regional gift-card suppliers into Odoo's sourcing module, auto-replenishing stock on sellout</li>
-          <li>Automated vendor price comparison to select the best-priced supplier at time of purchase</li>
-          <li>Built REST APIs powering an Android POS terminal, plus a scheduled action to batch invoicing off-peak</li>
-          <li>Worked directly with the client through requirements calls and issue triage throughout the build</li>
-        </ul>
-        <p class="project-skills">vendor API integration · reconciliation · scheduled actions · client communication</p>
-      </div>
-
-      <div class="compact-row" data-cat="mobile" role="button" tabindex="0" aria-expanded="false">
-        <span class="project-tag" style="color:var(--ok);border:1px solid var(--ok-dim)">Mobile</span>
-        <div class="compact-row-main">
-          <p class="compact-row-title">E-Wallet Mobile Application</p>
-          <p class="compact-row-sub">Flutter developer brought onto the app team at EBTECH — module-registry architecture</p>
-        </div>
-        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </div>
-      <div class="compact-row-detail">
-        <p class="project-meta">Flutter · Android &amp; iOS</p>
-        <ul>
-          <li>Custom module-registry architecture that decouples app features from one another</li>
-          <li>State management via Provider, local persistence via SharedPreferences, push notifications via Firebase</li>
-          <li>Custom packages for search and PIN/OTP verification; shipped to both Android and iOS</li>
-        </ul>
-        <p class="project-skills">Flutter architecture · Firebase · secure auth UX</p>
-      </div>
-
-      <div class="compact-row" data-cat="mobile" role="button" tabindex="0" aria-expanded="false">
-        <span class="project-tag" style="color:var(--ok);border:1px solid var(--ok-dim)">Mobile</span>
-        <div class="compact-row-main">
-          <p class="compact-row-title">RFID POS Solution</p>
-          <p class="compact-row-sub">Backend developer + mentor, dual-role engagement — hardware SDK integration</p>
-        </div>
-        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </div>
-      <div class="compact-row-detail">
-        <p class="project-meta">Hardware-integrated POS · paired with a trainee developer</p>
-        <ul>
-          <li>Integrated RFID hardware via the manufacturer's SDK, working directly with their support team on integration gaps</li>
-          <li>Built a reusable interface package wrapping the SDK, then mentored the trainee developer building the UI on top of it</li>
-          <li>Built Odoo APIs to read RFID-scanned products and reconcile them against on-hand stock</li>
-        </ul>
-        <p class="project-skills">hardware SDK integration · stock reconciliation · technical mentorship</p>
-      </div>
-
-      <div class="compact-row" data-cat="mobile" role="button" tabindex="0" aria-expanded="false">
-        <span class="project-tag" style="color:var(--ok);border:1px solid var(--ok-dim)">Mobile</span>
-        <div class="compact-row-main">
-          <p class="compact-row-title">Offline-First Salesman App</p>
-          <p class="compact-row-sub">Maintenance developer on the mobile team at EBTECH — offline-first sync</p>
-        </div>
-        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </div>
-      <div class="compact-row-detail">
-        <p class="project-meta">Flutter, SQLite, Odoo sync</p>
-        <ul>
-          <li>Maintained the local Inventory module tracking a salesman's mobile stock (products loaded onto their truck)</li>
-          <li>Bidirectional data sync with Odoo once connectivity returns</li>
-          <li>Integrated a portable Bluetooth receipt printer for in-field invoice printing</li>
-        </ul>
-        <p class="project-skills">offline-first sync · SQLite · Bluetooth hardware</p>
-      </div>
-
-      <div class="compact-row" data-cat="fintech" role="button" tabindex="0" aria-expanded="false">
-        <span class="project-tag" style="color:var(--warn);border:1px solid var(--warn-dim)">Automation</span>
-        <div class="compact-row-main">
-          <p class="compact-row-title">Fleet Data Automation</p>
-          <p class="compact-row-sub">Backend developer on the automation team at EBTECH — resilient data pipelines</p>
-        </div>
-        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </div>
-      <div class="compact-row-detail">
-        <p class="project-meta">No public vendor API · Odoo 17</p>
-        <ul>
-          <li>Data-collection layer combining direct calls to discovered endpoints with browser automation for pages with no accessible endpoint</li>
-          <li>Managed authenticated sessions to reliably pull data per account</li>
-          <li>Normalized the results into internal tables, effectively creating an internal API layer for automated per-contract invoicing</li>
-        </ul>
-        <p class="project-skills">resilient data pipelines · session management · automated invoicing</p>
-      </div>
-
-      <div class="compact-row" data-cat="saas" role="button" tabindex="0" aria-expanded="false">
-        <span class="project-tag" style="color:var(--info);border:1px solid var(--info-dim)">Academic</span>
-        <div class="compact-row-main">
-          <p class="compact-row-title">Healthcare Center Management System</p>
-          <p class="compact-row-sub">Backend developer, team of two — 93%, top of class</p>
-        </div>
-        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </div>
-      <div class="compact-row-detail">
-        <p class="project-meta">Graduation project · Odoo 17 · 93%, top of class</p>
-        <ul>
-          <li>Custom Appointments module tied to HR-based doctor shift schedules to validate availability</li>
-          <li>Per-doctor access control restricting visibility to a doctor's own appointments and patients</li>
-          <li>Blockchain-backed medical record storage using Ethereum, plus the full API layer connecting Odoo to my teammate's Flutter client</li>
-        </ul>
-        <p class="project-skills">custom modules · RBAC · Ethereum integration · cross-team API design</p>
-      </div>
-
-      <div class="compact-row" data-cat="mobile" role="button" tabindex="0" aria-expanded="false">
-        <span class="project-tag" style="color:var(--text-dim);border:1px solid var(--border)">Freelance</span>
-        <div class="compact-row-main">
-          <p class="compact-row-title">Bus &amp; Transportation Rental Tracker</p>
-          <p class="compact-row-sub">Independent freelance developer, solo build — pre-Odoo</p>
-        </div>
-        <span class="compact-row-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </div>
-      <div class="compact-row-detail">
-        <p class="project-meta">Pre-Odoo freelance · Firebase/Firestore</p>
-        <ul>
-          <li>Built both a mobile app and a desktop dashboard from scratch</li>
-          <li>Stored driver records and tracked fines/billing per rental</li>
-          <li>Firebase and Firestore as the complete backend, independently delivered</li>
-        </ul>
-        <p class="project-skills">Firebase/Firestore · cross-platform delivery</p>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1437,62 +1177,66 @@
     <p class="eyebrow">credentials/</p>
     <h2 class="section-title">Education &amp; certifications</h2>
     <div class="ed-cert-grid">
-      <div class="reveal">
+      <div>
         <p class="subhead">education</p>
         <div class="edu-card">
           <h4>B.Eng. in Computer and Automation Engineering</h4>
-          <p class="meta">Damascus University, Syria — 2019 to 2025</p>
-          <p class="note">Key project: Healthcare Management System (Odoo + Flutter + Ethereum blockchain), 93% — top of class.</p>
+          <p class="meta">Damascus University, Syria · 2019–2025</p>
+          <p class="note">Graduation project: Healthcare Management System (Odoo, Flutter, Ethereum), 93%, highest grade in class.</p>
         </div>
-        <div class="lang-row">
-          <span class="lang-chip">Arabic — <b>Native</b></span>
-          <span class="lang-chip">English — <b>Advanced (B2)</b></span>
-          <span class="lang-chip">German — <b>Beginner (A1)</b></span>
+        <p class="subhead" style="margin-top:28px;">languages</p>
+        <div class="lang-row" style="margin-top:0;">
+          <span class="lang-chip">Arabic · <b>native</b></span>
+          <span class="lang-chip">English · <b>B2</b></span>
+          <span class="lang-chip">German · <b>A1</b></span>
         </div>
       </div>
-      <div class="reveal">
+      <div>
         <p class="subhead">certifications</p>
         <ul class="cert-list">
-          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/AKYPZ0QOPASY" target="_blank" rel="noopener">IBM Introduction to Software Engineering ↗</a><span class="cyear">2025</span></li>
-          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/1RXV0SKLH6L9" target="_blank" rel="noopener">IBM Introduction to Cloud Computing ↗</a><span class="cyear">2025</span></li>
-          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/D2ZQD5C743JR" target="_blank" rel="noopener">Google Foundations of User Experience (UX) Design ↗</a><span class="cyear">2025</span></li>
-          <li><a class="cname" href="https://drive.google.com/file/d/1qZQ9wN5SLrjUVWp6rvXlG4T3VgntBHsq/view" target="_blank" rel="noopener">Odoo Framework OWL — EBTECH Technologies ↗</a><span class="cyear">2024</span></li>
-          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/RS5KTCN9YN7Y" target="_blank" rel="noopener">Foundations of Cybersecurity — Google ↗</a><span class="cyear">2023</span></li>
-          <li><a class="cname" href="https://drive.google.com/file/d/1HGLRb0fI_c7FkcRUHxPmfdFmd-GfOoe9/view" target="_blank" rel="noopener">Odoo Developer — EBTECH Technologies ↗</a><span class="cyear">2023</span></li>
+          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/AKYPZ0QOPASY" target="_blank" rel="noopener">Introduction to Software Engineering <span class="issuer">· IBM</span> ↗</a><span class="cyear">2025</span></li>
+          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/1RXV0SKLH6L9" target="_blank" rel="noopener">Introduction to Cloud Computing <span class="issuer">· IBM</span> ↗</a><span class="cyear">2025</span></li>
+          <li><a class="cname" href="https://drive.google.com/file/d/1qZQ9wN5SLrjUVWp6rvXlG4T3VgntBHsq/view" target="_blank" rel="noopener">Odoo Framework OWL <span class="issuer">· EBTECH Technologies</span> ↗</a><span class="cyear">2024</span></li>
+          <li><a class="cname" href="https://www.coursera.org/account/accomplishments/verify/RS5KTCN9YN7Y" target="_blank" rel="noopener">Foundations of Cybersecurity <span class="issuer">· Google</span> ↗</a><span class="cyear">2023</span></li>
+          <li><a class="cname" href="https://drive.google.com/file/d/1HGLRb0fI_c7FkcRUHxPmfdFmd-GfOoe9/view" target="_blank" rel="noopener">Odoo Developer, 90 hours <span class="issuer">· EBTECH Technologies</span> ↗</a><span class="cyear">2023</span></li>
         </ul>
       </div>
     </div>
 
-    <div class="reveal" style="margin-top:36px;">
-      <p class="subhead">verification</p>
-      <div class="edu-card" style="padding:22px 22px 24px;">
-        <h4>Employment Verification Letter — EBTECH Technologies</h4>
-        <p class="meta">Signed letter confirming the EBTECH Technologies employment dates listed above.</p>
-        <div style="border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin:14px 0 16px; background:var(--bg-elevated);">
-          <iframe src="https://drive.google.com/file/d/1xtt6H4hcRN5WmyETfK7fnQYBnFSneEmZ/preview" title="EBTECH Technologies employment verification letter preview" width="100%" height="480" style="display:block; border:0;" loading="lazy" allow="autoplay"></iframe>
+    <details class="verify" id="verifyLetter">
+      <summary>
+        <div>
+          <h4>Employment verification: EBTECH Technologies</h4>
+          <p>Signed letter confirming the part-time and full-time dates listed above.</p>
+        </div>
+        <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </summary>
+      <div class="verify-body">
+        <div class="verify-frame">
+          <iframe data-src="https://drive.google.com/file/d/1xtt6H4hcRN5WmyETfK7fnQYBnFSneEmZ/preview" title="EBTECH Technologies employment verification letter"></iframe>
         </div>
         <a class="btn btn-ghost" href="https://drive.google.com/file/d/1xtt6H4hcRN5WmyETfK7fnQYBnFSneEmZ/view?usp=sharing" target="_blank" rel="noopener">Open full document ↗</a>
       </div>
-    </div>
+    </details>
   </div>
 </section>
 
 <!-- ===================== CONTACT ===================== -->
 <section id="contact">
   <div class="wrap">
-    <div class="contact-panel reveal">
+    <div class="contact-panel">
       <div class="contact-inner">
         <p class="prompt-line">$ cat contact.sh</p>
         <h2>Let's talk about your team</h2>
-        <p>Open to full-time, EU-sponsored roles as an Odoo or backend developer. Reach out directly, or grab the CV below.</p>
+        <p>Open to full-time Odoo and backend developer roles in the EU. Email is the fastest way to reach me.</p>
         <div class="contact-grid">
           <div class="contact-item">
             <span class="k">email</span>
             <a class="v" href="mailto:eng.ahmd.sltn@gmail.com">eng.ahmd.sltn@gmail.com</a>
           </div>
           <div class="contact-item">
-            <span class="k">phone</span>
-            <a class="v" href="https://wa.me/963931458128">+963 931 458 128</a>
+            <span class="k">phone / whatsapp</span>
+            <a class="v" href="https://wa.me/963931458128" target="_blank" rel="noopener">+963 931 458 128</a>
           </div>
           <div class="contact-item">
             <span class="k">linkedin</span>
@@ -1508,186 +1252,144 @@
           </div>
         </div>
         <div class="contact-actions">
-          <a class="btn btn-primary" href="https://drive.google.com/file/d/1yTGdtGtv4vKU89Dv3eCcnlrrC0uC9_8M/view" target="_blank" download>Download CV</a>
-          <a class="btn btn-ghost" href="mailto:eng.ahmd.sltn@gmail.com">Send an email</a>
-          <a class="icon-btn" href="https://github.com/engahmdsltn-ops" target="_blank" rel="noopener" aria-label="GitHub profile" title="GitHub">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
-          </a>
+          <a class="btn btn-primary" href="mailto:eng.ahmd.sltn@gmail.com">Send an email</a>
+          <a class="btn btn-ghost" href="https://drive.google.com/file/d/1yTGdtGtv4vKU89Dv3eCcnlrrC0uC9_8M/view" target="_blank" rel="noopener">View CV</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+</main>
+
 <footer>
-  <p>&copy; 2026 Ahmad Sultan — built from scratch, no framework.</p>
+  <p>&copy; <span id="year">2026</span> Ahmad Sultan · built from scratch, no framework</p>
 </footer>
 
 <script>
 (function(){
-  // ---------- THEME ----------
   var root = document.documentElement;
+
+  // ---------- THEME ----------
   var toggle = document.getElementById('themeToggle');
   var iconMoon = document.getElementById('iconMoon');
   var iconSun = document.getElementById('iconSun');
   var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-  function applyTheme(theme){
-    root.setAttribute('data-theme', theme);
-    if(theme === 'dark'){
-      iconMoon.style.display = 'block';
-      iconSun.style.display = 'none';
-    } else {
-      iconMoon.style.display = 'none';
-      iconSun.style.display = 'block';
-    }
+  function syncIcons(theme){
+    iconMoon.style.display = theme === 'dark' ? 'block' : 'none';
+    iconSun.style.display = theme === 'dark' ? 'none' : 'block';
   }
-  applyTheme(prefersDark.matches ? 'dark' : 'light'); // respects system preference by default
-  prefersDark.addEventListener && prefersDark.addEventListener('change', function(e){
-    if(!window.__themeOverridden){ applyTheme(e.matches ? 'dark' : 'light'); }
-  });
+  function applyTheme(theme, persist){
+    root.setAttribute('data-theme', theme);
+    syncIcons(theme);
+    if(persist){ try{ localStorage.setItem('theme', theme); }catch(e){} }
+  }
+  syncIcons(root.getAttribute('data-theme'));
 
+  function hasSavedTheme(){ try{ return !!localStorage.getItem('theme'); }catch(e){ return false; } }
+  if(prefersDark.addEventListener){
+    prefersDark.addEventListener('change', function(e){
+      if(!hasSavedTheme()){ applyTheme(e.matches ? 'dark' : 'light', false); }
+    });
+  }
   toggle.addEventListener('click', function(){
-    window.__themeOverridden = true;
-    var current = root.getAttribute('data-theme');
-    applyTheme(current === 'dark' ? 'light' : 'dark');
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
   });
 
-  // ---------- MOBILE HAMBURGER MENU ----------
+  // ---------- MOBILE MENU ----------
   var menuToggle = document.getElementById('mobileMenuToggle');
   var mobileMenu = document.getElementById('mobileMenu');
-  if(menuToggle && mobileMenu){
-    menuToggle.addEventListener('click', function(){
-      var isOpen = mobileMenu.classList.toggle('open');
-      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  menuToggle.addEventListener('click', function(){
+    var isOpen = mobileMenu.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
     });
-    mobileMenu.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', function(){
-        mobileMenu.classList.remove('open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
+  });
 
-  // ---------- SCROLL REVEAL ----------
+  // ---------- HERO TERMINAL ----------
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealEls = document.querySelectorAll('.reveal');
-  if(reduceMotion || !('IntersectionObserver' in window)){
-    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    revealEls.forEach(function(el){ io.observe(el); });
-  }
-
-  // ---------- HERO TERMINAL TYPE-IN ----------
   var logs = [
-    { ts:'2026-02', tag:'AUDIT',   text:'Independent security audit of a production fintech e-wallet flagged critical API + architecture risks.' },
-    { ts:'2026-02', tag:'BUILD',   text:'Rebuilt REST API layer: registry, decorator-based routing, transaction-safe controllers.' },
-    { ts:'2026-02', tag:'AUTH',    text:'Shipped JWT + OTP authentication and a configurable KYC verification engine.' },
-    { ts:'2023-26', tag:'OSS',     text:'Extended the OCA audit_log module for an employer engagement — IP logging, Pivot/Kanban views.' },
-    { ts:'2024-25', tag:'COMPLY',  text:'Wired Odoo Accounting into a government e-invoicing API with QR-code verification.' },
-    { ts:'2023-26', tag:'SCALE',   text:'Contributed to 12+ ERP & mobile projects across 500+ users at EBTECH Technologies.' },
-    { ts:'status',  tag:'STATUS',  text:'15+ Odoo/Python projects · 3+ years documented · EU relocation-ready.' }
+    { ts:'2026',    tag:'AUDIT',   text:'Security and code-quality audit of a production fintech e-wallet; formal report and remediation plan delivered.' },
+    { ts:'2026',    tag:'BUILD',   text:'REST API framework on Odoo\u2019s HTTP layer: registry, decorator grouping, transaction-safe controllers.' },
+    { ts:'2026',    tag:'AUTH',    text:'OTP engine, JWT module and phone-number login; Swagger docs gated by user group.' },
+    { ts:'2026',    tag:'UPGRADE', text:'Production platform upgraded in place from Odoo 18 to 19.' },
+    { ts:'2023-26', tag:'COMPLY',  text:'Odoo Accounting connected to a government e-invoicing API, with a QR code on every invoice.' },
+    { ts:'2023-26', tag:'SAAS',    text:'Won CRM deal provisions a tenant automatically: company, admin, website, Cloudflare subdomain.' },
+    { ts:'status',  tag:'STATUS',  text:'15+ Odoo/Python projects \u00b7 Odoo 14\u201319 \u00b7 open to EU relocation.' }
   ];
-
   var out = document.getElementById('logOutput');
-
-  function renderStatic(){
-    logs.forEach(function(l){
-      out.appendChild(buildLine(l, l.text));
-    });
-  }
 
   function buildLine(l, text){
     var line = document.createElement('div');
     line.className = 'log-line';
-    var ts = document.createElement('span');
-    ts.className = 'log-ts';
-    ts.textContent = '[' + l.ts + ']';
-    var tag = document.createElement('span');
-    tag.className = 'log-tag tag-' + l.tag;
-    tag.textContent = l.tag;
-    var txt = document.createElement('span');
-    txt.className = 'log-text';
-    txt.textContent = text;
+    var ts = document.createElement('span'); ts.className = 'log-ts'; ts.textContent = '[' + l.ts + ']';
+    var tag = document.createElement('span'); tag.className = 'log-tag tag-' + l.tag; tag.textContent = l.tag;
+    var txt = document.createElement('span'); txt.className = 'log-text'; txt.textContent = text;
     line.appendChild(ts); line.appendChild(tag); line.appendChild(txt);
     return line;
   }
 
   if(reduceMotion){
-    renderStatic();
+    logs.forEach(function(l){ out.appendChild(buildLine(l, l.text)); });
   } else {
     var i = 0;
-    function typeNext(){
+    (function typeNext(){
       if(i >= logs.length) return;
       var l = logs[i];
       var line = buildLine(l, '');
       var txtSpan = line.querySelector('.log-text');
-      var cursor = document.createElement('span');
-      cursor.className = 'type-cursor';
+      var cursor = document.createElement('span'); cursor.className = 'type-cursor';
       line.appendChild(cursor);
       out.appendChild(line);
-
-      var chars = l.text.split('');
       var c = 0;
-      var speed = 14;
       (function typeChar(){
-        if(c < chars.length){
-          txtSpan.textContent += chars[c];
-          c++;
-          setTimeout(typeChar, speed);
+        if(c < l.text.length){
+          txtSpan.textContent += l.text.charAt(c++);
+          setTimeout(typeChar, 12);
         } else {
-          cursor.remove();
-          i++;
-          setTimeout(typeNext, 260);
+          cursor.remove(); i++;
+          setTimeout(typeNext, 220);
         }
       })();
-    }
-    setTimeout(typeNext, 350);
+    })();
   }
 
-  // ---------- TECH TICKER (duplicate for seamless loop) ----------
+  // ---------- TICKER LOOP ----------
   var tickerTrack = document.getElementById('tickerTrack');
-  if(tickerTrack){
-    var originalItems = Array.prototype.slice.call(tickerTrack.children);
-    originalItems.forEach(function(item){
-      tickerTrack.appendChild(item.cloneNode(true));
-    });
-  }
+  Array.prototype.slice.call(tickerTrack.children).forEach(function(item){
+    var clone = item.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    tickerTrack.appendChild(clone);
+  });
 
-  // ---------- PROJECT FILTER (flagship cards + compact rows) ----------
+  // ---------- PROJECT FILTER ----------
   var chips = document.querySelectorAll('.filter-chip');
   var cards = document.querySelectorAll('.project-card');
   var compactRows = document.querySelectorAll('.compact-row');
+  function matches(el, f){
+    return f === 'all' || (el.getAttribute('data-cat') || '').split(' ').indexOf(f) !== -1;
+  }
   chips.forEach(function(chip){
     chip.addEventListener('click', function(){
-      chips.forEach(function(c){ c.classList.remove('active'); });
-      chip.classList.add('active');
+      chips.forEach(function(c){ c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); });
+      chip.classList.add('active'); chip.setAttribute('aria-pressed', 'true');
       var f = chip.getAttribute('data-filter');
-      cards.forEach(function(card){
-        var show = (f === 'all' || card.getAttribute('data-cat') === f);
-        card.style.display = show ? '' : 'none';
-      });
+      cards.forEach(function(card){ card.style.display = matches(card, f) ? '' : 'none'; });
       compactRows.forEach(function(row){
-        var show = (f === 'all' || row.getAttribute('data-cat') === f);
-        var display = show ? '' : 'none';
+        var display = matches(row, f) ? '' : 'none';
         row.style.display = display;
         var detail = row.nextElementSibling;
-        if(detail && detail.classList.contains('compact-row-detail')){
-          detail.style.display = display;
-        }
+        if(detail && detail.classList.contains('compact-row-detail')){ detail.style.display = display; }
       });
     });
   });
 
-  // ---------- COMPACT ROW EXPAND/COLLAPSE ----------
+  // ---------- COMPACT ROW EXPAND ----------
   compactRows.forEach(function(row){
     var detail = row.nextElementSibling;
     if(!detail || !detail.classList.contains('compact-row-detail')) return;
@@ -1698,12 +1400,18 @@
     }
     row.addEventListener('click', toggleRow);
     row.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' '){
-        e.preventDefault();
-        toggleRow();
-      }
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleRow(); }
     });
   });
+
+  // ---------- VERIFICATION LETTER: load only when opened ----------
+  var verify = document.getElementById('verifyLetter');
+  verify.addEventListener('toggle', function(){
+    var frame = verify.querySelector('iframe');
+    if(verify.open && !frame.getAttribute('src')){ frame.setAttribute('src', frame.getAttribute('data-src')); }
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
 })();
 </script>
 
