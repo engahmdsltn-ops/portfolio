@@ -144,6 +144,22 @@
   .subroles li{ display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px dashed var(--border); font-size:14.5px; color:var(--text); margin:0; }
   .subroles li span{ font-family:var(--font-mono); font-size:12.5px; color:var(--dim); }
 
+  .verified-badge{ display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:#1E7F55; background:rgba(47,163,107,.12); border:1px solid rgba(47,163,107,.35); padding:3px 10px; border-radius:999px; text-decoration:none; margin-left:10px; white-space:nowrap; }
+  html[data-theme="dark"] .verified-badge{ color:#5FD39B; }
+  .verified-badge svg{ width:13px; height:13px; }
+  .verified-badge:hover{ background:rgba(47,163,107,.2); }
+
+  .verify{ margin-top:20px; background:var(--surface); border:1px solid var(--border); border-left:4px solid #2FA36B; border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+  .verify-head{ display:flex; align-items:center; gap:18px; padding:22px 26px; flex-wrap:wrap; }
+  .verify-ico{ width:44px; height:44px; border-radius:50%; background:rgba(47,163,107,.14); color:#2FA36B; display:grid; place-items:center; flex-shrink:0; }
+  .verify-ico svg{ width:22px; height:22px; }
+  .verify-text{ flex:1; min-width:240px; }
+  .verify-text h3{ margin:0 0 4px; font-size:18px; letter-spacing:-.01em; }
+  .verify-text p{ margin:0; color:var(--muted); font-size:14.5px; }
+  .verify-frame{ border-top:1px solid var(--border); background:var(--surface-2); }
+  .verify-frame iframe{ display:block; width:100%; height:560px; border:0; }
+  @media (max-width:640px){ .verify-head{ padding:18px; } .verify-frame iframe{ height:420px; } }
+
   /* PROJECTS */
   .project{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:26px; display:flex; flex-direction:column; }
   .project .top{ display:flex; justify-content:space-between; gap:12px; margin-bottom:10px; }
@@ -252,7 +268,7 @@
       <div class="portrait">
         <div class="photo" id="photoBox">
           <span class="photo-fallback" aria-hidden="true">AS</span>
-          <img src="https://avatars.githubusercontent.com/u/302485723?s=400&amp;u=b053e84ae02b2d4566c840cca16e7518530a46fd&amp;v=4" alt="Portrait of Ahmad Sultan" width="160" height="160" onerror="this.remove()">
+          <img src="photo.jpg" alt="Portrait of Ahmad Sultan" width="160" height="160" onerror="this.remove()">
         </div>
         <div class="who"><b>Ahmad Sultan</b><span>Full-Stack Odoo Developer</span><span>Damascus, Syria</span></div>
       </div>
@@ -356,7 +372,7 @@
       <article class="role">
         <div class="role-head">
           <div><h3>Odoo &amp; Flutter Developer</h3><p class="co">EBTECH Technologies · Dubai, UAE · Remote</p></div>
-          <span class="dates">May 2023 — Jan 2026</span>
+          <span class="dates">May 2023 — Jan 2026<a class="verified-badge" href="#verification" title="See the signed employment letter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verified</a></span>
         </div>
         <ul class="subroles">
           <li>Full-time <span>Apr 2025 — Jan 2026</span></li>
@@ -371,6 +387,20 @@
         </ul>
       </article>
 
+    </div>
+
+    <div class="verify" id="verification">
+      <div class="verify-head">
+        <span class="verify-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>
+        <div class="verify-text">
+          <h3>Employment verification: EBTECH Technologies</h3>
+          <p>Signed letter from the company confirming my part-time role (6 May 2023 – 31 Mar 2025) and full-time role (1 Apr 2025 – 31 Jan 2026).</p>
+        </div>
+        <a class="btn btn-ghost" href="https://drive.google.com/file/d/1xtt6H4hcRN5WmyETfK7fnQYBnFSneEmZ/view?usp=sharing" target="_blank" rel="noopener">Open full document ↗</a>
+      </div>
+      <div class="verify-frame">
+        <iframe src="https://drive.google.com/file/d/1xtt6H4hcRN5WmyETfK7fnQYBnFSneEmZ/preview" title="EBTECH Technologies employment verification letter" loading="lazy"></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -507,7 +537,7 @@
           <li><a href="https://www.coursera.org/account/accomplishments/verify/RS5KTCN9YN7Y" target="_blank" rel="noopener">Foundations of Cybersecurity <span class="issuer">· Google</span> ↗</a><span class="yr">2023</span></li>
           <li><a href="https://drive.google.com/file/d/1HGLRb0fI_c7FkcRUHxPmfdFmd-GfOoe9/view" target="_blank" rel="noopener">Odoo Developer, 90 hours <span class="issuer">· EBTECH Technologies</span> ↗</a><span class="yr">2023</span></li>
         </ul>
-        <p style="margin:16px 0 0;font-size:14px"><a class="btn btn-ghost" href="https://drive.google.com/file/d/1xtt6H4hcRN5WmyETfK7fnQYBnFSneEmZ/view?usp=sharing" target="_blank" rel="noopener">EBTECH employment verification letter ↗</a></p>
+        <p style="margin:16px 0 0;font-size:14px"><a class="btn btn-ghost" href="#verification">View signed employment letter ↑</a></p>
       </div>
     </div>
   </div>
