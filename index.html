@@ -259,6 +259,36 @@
   .contact .btn.outline:hover{ background:rgba(255,255,255,.12); }
   html[data-theme="dark"] .contact .btn.outline:hover{ background:rgba(27,17,25,.1); }
   footer{ text-align:center; padding:30px 24px 44px; font-size:13px; color:var(--dim); }
+  /* Cairn featured section */
+  #cairn{ position:relative; overflow:hidden; --st1:#4A535A; --st2:#626C74; --st3:#7C868E; --amber:#E8A93A; }
+  html[data-theme="dark"] #cairn{ --st1:#7E878E; --st2:#A3ABB1; --st3:#CDD3D7; }
+  #cairn::before{ content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+    background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+    background-size:44px 44px; -webkit-mask-image:radial-gradient(ellipse at 80% 20%,#000,transparent 65%); mask-image:radial-gradient(ellipse at 80% 20%,#000,transparent 65%); }
+  #cairn .wrap{ position:relative; }
+  .cairn-hero{ display:grid; gap:36px; align-items:center; margin-bottom:36px; grid-template-columns:minmax(0,1fr); }
+  .cairn-hero>*{ min-width:0; }
+  @media (min-width:900px){ .cairn-hero{ grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); } }
+  .cairn-brand{ display:flex; align-items:center; gap:16px; margin-bottom:18px; }
+  .cairn-brand svg{ width:54px; height:auto; }
+  .cairn-brand span{ font-weight:700; font-size:22px; letter-spacing:-.02em; }
+  .cairn-brand em{ font-style:normal; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px; border:1px solid var(--amber); color:var(--amber); }
+  .cairn-panel{ position:relative; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); overflow:hidden; }
+  .cairn-panel::after{ content:""; position:absolute; width:260px; height:260px; right:-90px; top:-110px; border-radius:50%; background:radial-gradient(circle,var(--amber),transparent 70%); opacity:.22; pointer-events:none; }
+  .cairn-panel .bar{ display:flex; justify-content:space-between; font:500 12px var(--font-mono,ui-monospace,monospace); color:var(--dim,var(--muted)); margin-bottom:14px; }
+  .cairn-stones{ display:flex; justify-content:center; margin:6px 0 16px; }
+  .cairn-stones svg{ width:112px; height:auto; filter:drop-shadow(0 10px 18px rgba(0,0,0,.25)); }
+  .cairn-stones .s{ transform-origin:center; animation:cairnfloat 6s ease-in-out infinite; }
+  .cairn-stones .s2{ animation-delay:-1.5s; } .cairn-stones .s3{ animation-delay:-3s; } .cairn-stones .s4{ animation-delay:-4.5s; }
+  @keyframes cairnfloat{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-3px) } }
+  .cairn-ans{ font:500 13px/1.7 var(--font-mono,ui-monospace,monospace); background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; color:var(--muted); overflow-wrap:anywhere; }
+  .cairn-ans .q{ color:var(--text); } .cairn-ans .ok{ color:#2F9E63; font-weight:700; } .cairn-ans .ref{ color:var(--amber); }
+  html[data-theme="dark"] .cairn-ans .ok{ color:#8FD6A8; }
+  .cairn-ans .unv{ color:var(--dim,var(--muted)); font-style:italic; }
+  .cairn-chain{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:14px; font:600 11.5px var(--font-body); }
+  .cairn-chain b{ padding:5px 10px; border-radius:999px; background:var(--accent-soft); color:var(--accent-strong); font-weight:600; }
+  .cairn-chain i{ width:14px; height:1px; background:var(--amber); }
+  @media (prefers-reduced-motion:reduce){ .cairn-stones .s{ animation:none; } }
 </style>
 </head>
 <body>
@@ -436,9 +466,20 @@ manager approval before they can be confirmed.
 <!-- CAIRN -->
 <section id="cairn" style="border-bottom:1px solid var(--border)">
   <div class="wrap">
-    <p class="label">Featured project</p>
-    <h2 class="title">Cairn: every stone has a source</h2>
-    <p class="lead">My own open-source agent for building Odoo. It answers from indexed source with a file and line reference, and says &ldquo;unverified&rdquo; when it has not read the code. Status: design complete, implementation in progress.</p>
+    <div class="cairn-hero">
+      <div>
+        <div class="cairn-brand"><svg viewBox="0 0 120 140" role="img" aria-label="Cairn logo: four stacked stones"><ellipse cx="60" cy="114" rx="44" ry="20" fill="var(--st1)" transform="rotate(-3 60 114)"/><ellipse cx="58" cy="75" rx="32" ry="16" fill="var(--st2)" transform="rotate(2 58 75)"/><ellipse cx="62" cy="45" rx="20" ry="12" fill="var(--st3)" transform="rotate(-4 62 45)"/><ellipse cx="60" cy="24" rx="9" ry="7" fill="var(--amber)"/></svg><span>Cairn</span><em>design complete &middot; in progress</em></div>
+        <p class="label">Featured project</p>
+        <h2 class="title">Every stone has a source</h2>
+        <p class="lead" style="margin-bottom:0">My own open-source AI agent for building Odoo. It answers from indexed source with a file and line reference, and says &ldquo;unverified&rdquo; when it has not read the code.</p>
+      </div>
+      <div class="cairn-panel" aria-label="Illustration of a Cairn answer with its source label">
+        <div class="bar"><span>cairn &middot; answer</span><span>illustrative</span></div>
+        <div class="cairn-stones"><svg viewBox="0 0 120 140" role="img" aria-label="Cairn logo: four stacked stones"><ellipse class="s" cx="60" cy="114" rx="44" ry="20" fill="var(--st1)" transform="rotate(-3 60 114)"/><ellipse class="s s2" cx="58" cy="75" rx="32" ry="16" fill="var(--st2)" transform="rotate(2 58 75)"/><ellipse class="s s3" cx="62" cy="45" rx="20" ry="12" fill="var(--st3)" transform="rotate(-4 62 45)"/><ellipse class="s s4" cx="60" cy="24" rx="9" ry="7" fill="var(--amber)"/></svg></div>
+        <div class="cairn-ans"><div class="q">&gt; how does Odoo do X?</div><div><span class="ok">verified</span> @&lt;snapshot&gt; <span class="ref">&lt;addon&gt;/models/&lt;file&gt;.py:&lt;line&gt;</span></div><div class="unv">no source read &rarr; unverified</div></div>
+        <div class="cairn-chain"><b>question</b><i></i><b>index</b><i></i><b>source</b><i></i><b>labelled answer</b></div>
+      </div>
+    </div>
     <div class="grid-3">
       <div class="card feature">
         <h3>Provenance first</h3>
